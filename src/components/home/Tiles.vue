@@ -1,101 +1,55 @@
 <template>
-  <div class="tile is-ancestor" id="back_image">
-    <div class="tile is-parent is-4" id="item_margin">
-      <article class="tile is-child box" id="opacity_item">
-        <p class="subtitle title is-4">心情小贴</p>
-        <!-- <div>
-        
-          <b-field>
-            <b-tag
-              v-if="isTag1Active"
-              type="is-primary"
-              closable
-              aria-close-label="Close tag"
-              @close="isTag1Active = false"
-            >
-              Colored closable tag label
-            </b-tag>
-          </b-field>
-          <b-field>
-            <b-tag
-              v-if="isTag2Active"
-              type="is-success"
-              closable
-              closeType="is-danger"
-              aria-close-label="Close tag"
-              @close="isTag2Active = false"
-            >
-              Colored closable tag label with colored closed icon
-            </b-tag>
-          </b-field>
-          <b-field>
-            <b-tag
-              v-if="isTag3Active"
-              type="is-link"
-              closable
-              closeType="is-link"
-              aria-close-label="Close tag"
-              @close="isTag3Active = false"
-            >
-              Colored closable tag label with colored closed icon
-            </b-tag>
-          </b-field>
-          <b-field>
-            <b-tag
-              v-if="isTag5Active"
-              close-type="is-danger"
-              attached
-              closable
-              aria-close-label="Close tag"
-              @close="isTag5Active = false"
-            >
-              Attached tag label with colored close type
-            </b-tag>
-          </b-field>
-          <b-field>
-            <b-tag
-              v-if="isTag6Active"
-              close-type="is-warning"
-              close-icon-type="is-dark"
-              attached
-              closable
-              close-icon="delete"
-              aria-close-label="Close tag"
-              @close="isTag6Active = false"
-            >
-              Attached tag label with custom and colored icon
-            </b-tag>
-          </b-field>
-          
-        </div> -->
-          <div class="tile is-child is-8">
+  <div class="tile is-ancestor" id="back_image" style="height:280px;">
+    <div class="tile is-parent is-4" id="item_margin" >
+      <article class="tile is-child box" id="opacity_item" style="overflow-y: scroll; overflow-x: hidden;overflow-y: hidden;">
+        <section>
+          <p class="subtitle title is-4">流动消息</p>
+        </section>
+        <!-- <div class="tile is-child is-1" id="mood">
           <Slider></Slider>
+          </div> -->
+          
+           <div class="tile is-child is-10" id="mood">
+          <Mood></Mood>
+            <div>
+              <el-link type="primary">没有BUG的代码是不完美的！ --Sodium_Sulfate</el-link>
+              <br>
+              <el-link type="success">大本钟下送快递——上面摆，下面寄。 --饭堂周末夜</el-link>
+              <br>
+              <el-link type="warning">你，对，你，就是你，你是你。 --什</el-link>
+              <br>
+              <el-link type="danger">当遇到你时，大脑连上CSGO都会掉帧。 --Florence</el-link>
+              <br>
+              <el-link type="info">一旦醉心于狩猎，不到最后关头不会发现自己才是猎物。 --来自新世界</el-link> 
+            </div>
           </div>
-         
       </article>
     </div>
 
     <div class="tile is-parent is-4" id="item_margin">
-      <section class="b-tooltips is-child box" id="opacity_item">
+      <article class="b-tooltips is-child box" id="opacity_item" >
         <p class="subtitle title is-4">问题广场</p>
         <b-tooltip
-          label="Maybe you like a little animation"
+          label="也许你需要一点小小的帮助！！"
           position="is-bottom"
           :animated="false"
         >
-          <b-button label="No animation" />
+          <b-button label="求助帖" />
         </b-tooltip>
 
-        <b-tooltip label="You prefer dark?" type="is-dark" position="is-bottom">
-          <b-button label="Dark" type="is-primary" />
+        <b-tooltip label="你有什么想说的Q.0" type="is-dark" position="is-bottom">
+          <b-button label="吐槽帖" type="is-primary" />
         </b-tooltip>
 
-        <b-tooltip label="Or light?" type="is-light" position="is-bottom">
-          <b-button label="Light" />
+        <b-tooltip label="生活?" type="is-light" position="is-bottom">
+          <b-button label="校园生活" />
         </b-tooltip>
 
-        <b-tooltip label="I'm square" position="is-bottom" square>
-          <b-button label="Square" />
+        <b-tooltip label="千里姻缘一线牵？" position="is-bottom" square>
+          <b-button label="交个朋友！" type="is-primary"/>
+        </b-tooltip>
+        <b-tooltip label="嘿嘿嘿嘿嘿" position="is-bottom" square>
+          <b-button label="开黑嘿嘿嘿" />
         </b-tooltip>
 
         <b-tooltip
@@ -103,19 +57,21 @@
           type="is-primary is-light"
           position="is-bottom"
         >
-          <b-button label="Primary light variant" />
+          <b-button label="Primary light " />
         </b-tooltip>
-      </section>
+      </article>
     </div>
 
     <div class="tile is-parent is-4" id="item_margin">
-      <article class="tile is-child box" id="opacity_item">
+      <article class="tile is-child box" id="opacity_item" style="overflow-y: scroll;">
         <b-tabs>
           <!-- Information -->
-          <b-tab-item label="日常消息" icon="home">
+          <b-tab-item label="日常消息" icon="home" >
             <section>
-              <a href="">只有分离后才能懂的事，却没有了感慨的时间。 --宝石之国</a>
+              <a href="">{{everyMessage.hitokoto}}--来自《{{everyMessage.from}}》 .{{everyMessage.from_who}}</a>
+              <hr>
             </section>
+            
 
           </b-tab-item>
           <!-- Other -->
@@ -143,10 +99,15 @@
 </template>
 
 <script>
-import Slider from "../view/Slider.vue"
+import axios from 'axios';
+import Slider from "../view/Slider.vue";
+import Mood from "../view/Mood.vue"
+
 export default {
   components: {
-      Slider
+      Slider,
+      Mood
+      
   },
   data() {
     return {
@@ -157,12 +118,25 @@ export default {
       isTag3Active: true,
       isTag4Active: true,
       isTag5Active: true,
-      isTag6Active: true
+      isTag6Active: true,
+      key:"idvHfTqJf6mEqMA0iXNoIjxFju",
+      everyMessage: ""
     };
   },
   methods: {
+    getEverydayMessage(){
+      axios.get('https://v1.hitokoto.cn')
+    .then(({ data }) => {
+      console.log(data)
+      this.everyMessage = data
+    })
+    .catch(console.error)
+    }
     
   },
+  mounted(){
+   this.getEverydayMessage()
+  }
 };
 </script>
 
@@ -175,6 +149,9 @@ export default {
     margin-bottom: 0.5em;
   }
 }
+#mood {
+  text-align: center;
+}
 
 .subtitle {
   text-align: left;
@@ -183,10 +160,10 @@ export default {
   text-align: center;
   margin: 0 auto;
 }
-.size {
-  width: 64px;
-  height: 64px;
-}
+// .size {
+//   width: 64px;
+//   height: 64px;
+// }
 #back_image {
   background-image: url("../../assets/banner_two.png");
   background-repeat: no-repeat;

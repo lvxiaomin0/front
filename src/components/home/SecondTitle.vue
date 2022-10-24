@@ -18,8 +18,8 @@
                   全部帖子
                 </button>
               </p>
-              <div class="box" v-for="(item, i) in info" :key="i">
-                <article class="media">
+              <div class="box" v-for="(item, i) in info" :key="i" >
+                <article class="media" v-if="item.map">
                   <figure class="media-left">
                     <p class="image is-64x64">
                       <!-- <img :src="require(`@/assets/${item.user.userImg}`)" class="size" /> -->
@@ -44,8 +44,8 @@
                         {{ item.artTitle }}
                       </p>
                     </div>
-                    <!-- <nav class="level is-mobile">
-                <div class="level-left">
+              <!-- <nav class="level is-mobile">
+                <div class="level-right">
                   <a class="level-item">
                     <span class="icon is-small">
                       <i class="fab fa-hotjar"></i>
@@ -68,6 +68,29 @@
                   </a>
                 </div>
               </nav> -->
+              <nav class="level is-mobile">
+                <div class="level-right">
+                <a>
+                  <span class="icon is-small">
+                      <i class="fab fa-hotjar"></i>
+                    </span>
+                    {{"热度"}}
+                </a>
+                 <a>
+                    <span class="icon is-small">
+                      <i class="fas fa-comment-dots"></i>
+                    </span>
+                    {{"评论"}}
+                  </a>
+
+                  <a>
+                    <span class="icon is-small">
+                      <i class="fas fa-heart"></i>
+                    </span>
+                    {{"喜欢"}}
+                  </a>
+                </div>
+              </nav>
                   </div>
                   <div class="media-right">
                     <a class="navbar-item" slot="trigger" role="button">
@@ -221,7 +244,6 @@ export default {
         "http://localhost:8081/service/get-article"
       )
       .then((response)=>{
-        console.log(response.data.data);
         this.info = response.data.data;
         console.log("info:",this.info);
       })

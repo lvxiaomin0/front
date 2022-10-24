@@ -72,7 +72,7 @@
           <div class="sep20"></div>
           <div class="box" id="box">
             <div class="cell">
-              <a href="/">{{}}</a>
+              <a href="/">{{$store.state.user.userName}}</a>
               <span class="chevron">&nbsp;›&nbsp;</span> 发表新帖
             </div>
             <form method="post" action="/new" id="compose">
@@ -111,7 +111,7 @@
                   v-model="select"
                 >
                   <option value="1" data-select2-id="1069">篮球</option>
-                  <option value="2" data-select2-id="1070">足球</option>
+                  <option value="2" data-select2-id="1070">求助</option>
                   <option value="3" data-select2-id="1069">步行街</option>
                   <option value="4" data-select2-id="1069">跳蚤市场</option>
                   <option value="5" data-select2-id="1069">健身区</option>

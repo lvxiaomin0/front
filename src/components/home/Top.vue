@@ -9,13 +9,13 @@
       </b-navbar-item>
     </template>
     <template #start>
-      <b-navbar-item href="#" style="font-size: 20px"> Home </b-navbar-item>
+      <b-navbar-item href="#" style="font-size: 20px"> 首页 </b-navbar-item>
       <b-navbar-item href="#" style="font-size: 20px">
-        Documentation
+        这里还不知道
       </b-navbar-item>
       <b-navbar-dropdown label="Info" style="font-size: 20px">
-        <b-navbar-item href="#"> About </b-navbar-item>
-        <b-navbar-item href="#"> Contact </b-navbar-item>
+        <b-navbar-item href="http://42.192.90.40:4000/"> 博客 </b-navbar-item>
+        <b-navbar-item href="#"> 联系我 </b-navbar-item>
       </b-navbar-dropdown>
 
       <div class="level-left" id="search_control">

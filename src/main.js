@@ -12,13 +12,14 @@ import axios from 'axios'
 import store from './store'
 
 
+
+
 Vue.config.productionTip = false
 // Vue.use(bulma)
 Vue.use(Buefy)
 Vue.use(ElementUI)
 Vue.use(VueRouter)
 Vue.prototype.axios = axios
-
 
 new Vue({
   render: h => h(App),

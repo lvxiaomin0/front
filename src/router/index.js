@@ -59,6 +59,11 @@ export default new VueRouter({
           name: "registerhome",
           component: () => import("../components/register/RegisterHome")
         },
+        {
+          path: "/messageboard",
+          name: "messageboard",
+          component: () => import("../components/view/MessageBoard.vue")
+        }
        
         
     ]

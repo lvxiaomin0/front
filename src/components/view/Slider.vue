@@ -1,9 +1,9 @@
 <template>
   <div id="slider">
     <!-- 主要动画效果：字体和进度条以及表情随情绪程度百分比变化 -->
-    <label for="range" :style="{ color: getHappinessColor }"
+    <!-- <label for="range" :style="{ color: getHappinessColor }"
       >情绪程度: {{ val }}%</label
-    >
+    > -->
     <!-- 滑动杆的颜色应该与预先设置好的颜色进行绑定，颜色可随意更改 -->
     <!-- 情绪程度的值也应该随val值变动 -->
     <input type="range" name="" id="range" min="0" max="100" v-model="val" />
