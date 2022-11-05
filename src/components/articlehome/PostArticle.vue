@@ -153,16 +153,28 @@
               <input type="hidden" name="content" value id="topic_content" />
               <input type="hidden" name="once" value="97891" />
             </form>
+           
             <div class="cell">
               <div class="fr">
                 <span id="error_message"></span> &nbsp;
-                <button type="button" class="super normal button" @click="post">
+                <button type="button" class="super normal button is-primary" @click="post">
                   <li class="fa fa-paper-plane"></li>&nbsp;发布
                 </button>
               </div>
-              <button class="super normal button" onclick="previewTopic();">
+              <!-- <button class="super normal button" onclick="previewTopic();">
                 <li class="fa fa-eye"></li>&nbsp;
-              </button>
+              </button> -->
+               <b-field class="file is-primary" :class="{'has-name': !!file}">
+                <b-upload v-model="file" class="file-label">
+                    <span class="file-cta">
+                        <b-icon class="file-icon" icon="upload"></b-icon>
+                        <span class="file-label">图片or视频</span>
+                    </span>
+                    <span class="file-name" v-if="file">
+                        {{ file.name }}
+                    </span>
+                </b-upload>
+            </b-field>
             </div>
           </div>
         </div>
@@ -207,28 +219,31 @@
 </template>
 
 
-
 <script>
-import { newpost } from "@/api";
+import axios from "axios";
 export default {
   data() {
     return {
       select: "",
       title: "",
       text: "",
-      userId: ""
+      userId: "",
+      file: 
+          {
+            name: ""
+          }
     };
   },
   methods: {
     post() {
       this.userId = this.$store.state.user.userId;
-      newpost(this.userId, this.title, this.text, this.select)
-        .then(res => {
-          if (res.data === 200) {
-            this.$router.push("/");
-          }
-        })
-        .catch();
+      axios.post("http://localhost:8081/service/add-article",{
+        typeName: this.select,
+        artTitle: this.title,
+        artContent: this.text,
+        userId: this.userId
+
+      })
     }
   }
 };

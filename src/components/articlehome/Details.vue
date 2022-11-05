@@ -129,7 +129,7 @@
           <div class="sep20"></div>
           <div class="box" style="border-bottom:0px;">
             <div class="header">
-              <div class="fr">
+              <div class="fr" v-if="info.map">
                 <!-- <img :src="require(`../../assets/${info.user}`)" class="size" /> -->
                 <img :src="info.map.user.userImg" class="size" alt="">
               </div>

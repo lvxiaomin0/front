@@ -1,8 +1,17 @@
 <template>
   <div>
+     
      <div class="el-card-messages">
+      <section>
+      <b-field class="large">
+            <b-tag
+                type="is-primary">
+                有人看到了你的无助的眼神！
+            </b-tag>
+        </b-field>
+     </section>
       <el-input v-model="nickName" size="mini" class="message-nick-name">
-        <template slot="prepend">昵称：</template>
+        <template slot="prepend" >昵称：</template>
       </el-input>
       <!-- <el-input
         slot="prepend"
@@ -75,10 +84,12 @@ export default {
       currentPage: 1,
       pagemessages: [],
       allmessages: []
+    
     }
   },
   created() {
     this.doQuery()
+    this.nickName  = this.$store.state.user.userName;
   },
   methods: {
     // 模拟后台查询

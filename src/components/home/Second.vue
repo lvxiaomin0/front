@@ -50,6 +50,7 @@ export default {
     z-index: -1;
     background-image: url("../../assets/banner_one.png");
     background-repeat: no-repeat;
+   
     /* background-image: url("https://www.toptal.com/designers/subtlepatterns/uploads/memphis-colorful.png"); */
 }
 </style>

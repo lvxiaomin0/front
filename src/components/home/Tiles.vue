@@ -10,9 +10,21 @@
           </div> -->
           
            <div class="tile is-child is-10" id="mood">
-          <Mood></Mood>
-            <div>
+          <!-- <Mood></Mood> -->
+          <div>
+            <el-carousel :interval="3000" direction="vertical" type="" height="100px" width="100px" indicator-position="none">
+              <el-carousel-item v-for="item in 6" :key="item">
+                <h3 class="medium">{{ item }}</h3>
+                <el-link type="primary">没有BUG的代码是不完美的！ --Sodium_Sulfate</el-link>
+                 <el-link type="info">一旦醉心于狩猎，不到最后关头不会发现自己才是猎物。 --来自新世界</el-link>
+              </el-carousel-item>
+            </el-carousel>
+          </div>
+          
+            <!-- <div>
+              <marquee behavior="scroll" direction="up" scrolldelay="500" scrollamount="2">
               <el-link type="primary">没有BUG的代码是不完美的！ --Sodium_Sulfate</el-link>
+              </marquee>
               <br>
               <el-link type="success">大本钟下送快递——上面摆，下面寄。 --饭堂周末夜</el-link>
               <br>
@@ -21,7 +33,9 @@
               <el-link type="danger">当遇到你时，大脑连上CSGO都会掉帧。 --Florence</el-link>
               <br>
               <el-link type="info">一旦醉心于狩猎，不到最后关头不会发现自己才是猎物。 --来自新世界</el-link> 
-            </div>
+      
+            </div> -->
+
           </div>
       </article>
     </div>
@@ -34,7 +48,7 @@
           position="is-bottom"
           :animated="false"
         >
-          <b-button label="求助帖" />
+          <b-button label="求助帖" @click="help()" />
         </b-tooltip>
 
         <b-tooltip label="你有什么想说的Q.0" type="is-dark" position="is-bottom">
@@ -63,14 +77,24 @@
     </div>
 
     <div class="tile is-parent is-4" id="item_margin">
-      <article class="tile is-child box" id="opacity_item" style="overflow-y: scroll;">
+      <article class="tile is-child box" id="opacity_item" >
         <b-tabs>
           <!-- Information -->
           <b-tab-item label="日常消息" icon="home" >
-            <section>
-              <a href="">{{everyMessage.hitokoto}}--来自《{{everyMessage.from}}》 .{{everyMessage.from_who}}</a>
-              <hr>
-            </section>
+            <happy-scroll style="height:150px; width:100%" size="8" :min-length-h="0.2" color="rgba(51,51,51,0.2)">
+                <section>
+                  <a href="">{{everyMessage.hitokoto}}--来自《{{everyMessage.from}}》 .{{everyMessage.from_who}}</a>
+                  <hr>
+                  <a href="">{{everyMessage.hitokoto}}--来自《{{everyMessage.from}}》 .{{everyMessage.from_who}}</a>
+                  <hr>
+                  <a href="">{{everyMessage.hitokoto}}--来自《{{everyMessage.from}}》 .{{everyMessage.from_who}}</a>
+                  <hr>
+                  <a href="">{{everyMessage.hitokoto}}--来自《{{everyMessage.from}}》 .{{everyMessage.from_who}}</a>
+                  <hr>
+                  <a href="">{{everyMessage.hitokoto}}--来自《{{everyMessage.from}}》 .{{everyMessage.from_who}}</a>
+                  <hr>
+              </section>
+            </happy-scroll>
             
 
           </b-tab-item>
@@ -103,6 +127,8 @@ import axios from 'axios';
 import Slider from "../view/Slider.vue";
 import Mood from "../view/Mood.vue"
 
+
+
 export default {
   components: {
       Slider,
@@ -120,7 +146,12 @@ export default {
       isTag5Active: true,
       isTag6Active: true,
       key:"idvHfTqJf6mEqMA0iXNoIjxFju",
-      everyMessage: ""
+      everyMessage: "",
+      TempInfo:[
+        {
+          message: ""
+        }
+      ]
     };
   },
   methods: {
@@ -131,6 +162,10 @@ export default {
       this.everyMessage = data
     })
     .catch(console.error)
+    },
+    //页面跳转  根据 不同的帖子类型，展示不同的留言板块  待实现
+    help(){
+      this.$router.push("messageboard");
     }
     
   },
@@ -167,7 +202,7 @@ export default {
 #back_image {
   background-image: url("../../assets/banner_two.png");
   background-repeat: no-repeat;
-  background-position-x: -10px;
+  // background-position-x: 10px;
   // background-size: contain;
 }
 #opacity_item {
@@ -176,4 +211,5 @@ export default {
 #item_margin {
   margin-top: 1%;
 }
+
 </style>

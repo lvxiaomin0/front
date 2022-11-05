@@ -4,11 +4,24 @@
       <p>
         <strong style="color:White">此项目 by</strong> 
         <a href="https://github.com/Ming" style="color:White">. Ming</a>
-        <a
-          href="https://github.com/ming/melon" style="color:White"
-        >1.0</a>.
+        <a href="https://github.com/ming/melon" style="color:White">1.0</a>.
+        <a class="tag is-dark" href="https://www.github.com">GitHub</a>
+        <a class="tag is-primary">6.6.6</a>
+        
+        
       </p>
     </div>
+     <!-- <div class="tile is-parent">
+        <article class="tile is-child box">
+          <p class="title">友情链接</p>
+          <div class="control">
+            <div class="tags has-addons">
+              <a class="tag is-dark" href="https://www.github.com">GitHub</a>
+              <a class="tag is-primary">6.6.6</a>
+            </div>
+          </div>
+        </article>
+      </div> -->
   </footer>
 </template>
 
