@@ -63,7 +63,13 @@ export default new VueRouter({
           path: "/messageboard",
           name: "messageboard",
           component: () => import("../components/view/MessageBoard.vue")
-        }
+        },
+        {
+          path: "/new",
+          name: "new",
+          component: () => import("../components/view/new.vue")
+        },
+        
        
         
     ]

@@ -1,37 +1,33 @@
 <template>
-  <div>
-     
-     <div class="el-card-messages">
+  <div class="mains">
+    <div class="el-card-messages">
       <section>
-      <b-field class="large">
-            <b-tag
-                type="is-primary">
-                有人看到了你的无助的眼神！
-            </b-tag>
+        <b-field class="large">
+          <b-tag type="is-primary"> 有人看到了你的无助的眼神！ </b-tag>
         </b-field>
-     </section>
-      <el-input v-model="nickName" size="mini" class="message-nick-name">
-        <template slot="prepend" >昵称：</template>
-      </el-input>
-      <!-- <el-input
-        slot="prepend"
-        v-model="message"
-        type="textarea"
-        :rows="2"
-        class="message-text"
-        placeholder="输入留言"
-        maxlength="200"
-      /> -->
+      </section>
+      
+      <div class="cell">
+        <a href="/">{{ $store.state.user.userName }}</a>
+        <span class="chevron">&nbsp;›&nbsp;</span> 留下你的新留言
+      </div>
       <!--留言板 -->
-    <textarea class="textarea is-success" placeholder="Primary textarea" v-model="message" slot="prepend" maxlength="200"></textarea>
+      <textarea
+        class="textarea is-success "
+        placeholder="你最好是好好说昂！"
+        v-model="message"
+        slot="prepend"
+        maxlength="200"
+      ></textarea>
+      <!-- 提交按钮 -->
       <el-button
         type="info"
         round
         class="submit-message"
         size="mini"
         @click="submitMessage"
-      >留言</el-button>
-
+        >留言</el-button
+      >
     </div>
     <el-card class="el-card-d" shadow="always">
       <el-timeline infinite-scroll-disabled="disabled">
@@ -45,14 +41,19 @@
             <el-card class="el-card-m">
               <span class="el-card-m-content">{{ item.content }}</span>
               <div />
-              <span class="el-card-m-nick-name">{{ item.nickName }} 提交于 {{ item.createTime }}</span>
+              <span class="el-card-m-nick-name"
+                >{{ item.nickName }} 提交于 {{ item.createTime }}</span
+              >
+               <!-- 可修改可删除双按钮 -->
+               
             </el-card>
           </el-timeline-item>
+         
         </div>
         <div v-else>
           <el-timeline-item placement="top">
             <el-card class="el-card-m">
-              <p class="el-card-m-nick-name">  没有任何留言</p>
+              <p class="el-card-m-nick-name">没有任何留言</p>
             </el-card>
           </el-timeline-item>
         </div>
@@ -66,73 +67,99 @@
         :hide-on-single-page="true"
         @current-change="handleCurrentChange"
       />
-
     </el-card>
-   
   </div>
 </template>
 
 <script>
 // 格式化时间函数
-import { parseTime } from '@/utils/index'
+import { parseTime } from "@/utils/index";
 export default {
+  name:"messageboard",
   data() {
     return {
-      nickName: '',
-      message: '',
+      nickName: this.$store.state.user.userName,
+      message: "你最好是好好说昂！！！",
       pagesize: 3,
       currentPage: 1,
       pagemessages: [],
-      allmessages: []
-    
-    }
+      allmessages: [],
+    };
   },
-  created() {
-    this.doQuery()
-    this.nickName  = this.$store.state.user.userName;
+  mounted() {
+    // this.nickName = this.$store.state.user.userName;
   },
   methods: {
     // 模拟后台查询
     doQuery() {
-      const start = (this.currentPage - 1) * this.pagesize
-      const end = start + this.pagesize
+      const start = (this.currentPage - 1) * this.pagesize;
+      const end = start + this.pagesize;
       for (var i = start; i < end; i++) {
         if (i < this.allmessages.length) {
-          this.pagemessages.push(this.allmessages[i])
+          this.pagemessages.push(this.allmessages[i]);
         }
       }
     },
     // 翻页
     handleCurrentChange(val) {
-      this.currentPage = val
-      this.pagemessages = []
-      this.doQuery()
+      this.currentPage = val;
+      this.pagemessages = [];
+      this.doQuery();
     },
     // 提交留言
     submitMessage() {
-      if (this.nickName === '' || this.nickName.replace(/(^\s*)|(\s*$)/g, '') === '') {
-        this.$message('请输入昵称')
-        return
+      if (
+        this.nickName === "" ||
+        this.nickName.replace(/(^\s*)|(\s*$)/g, "") === ""
+      ) {
+        this.$message("请输入昵称");
+        return;
       }
-      if (this.message === '' || this.message.replace(/(^\s*)|(\s*$)/g, '') === '') {
-        this.$message('留言不能为空')
-        return
+      if (
+        this.message === "" ||
+        this.message.replace(/(^\s*)|(\s*$)/g, "") === ""
+      ) {
+        this.$message("留言不能为空");
+        return;
       }
       //  模拟保存数据
-      var timestamp = Date.parse(new Date())
-      this.allmessages.push({ createTime: parseTime(timestamp), createDate: parseTime(timestamp, '{y}-{m}-{d}'), nickName: this.nickName, content: this.message })
-      this.nickName = ''
-      this.message = ''
+      var timestamp = Date.parse(new Date());
+      this.allmessages.push({
+        createTime: parseTime(timestamp),
+        createDate: parseTime(timestamp, "{y}-{m}-{d}"),
+        nickName: this.nickName,
+        content: this.message,
+      });
+      // this.nickName = "";
+      this.message = "";
       // 翻页到最后一页
-      this.currentPage = Math.ceil(this.allmessages.length / this.pagesize, 0)
-      this.handleCurrentChange(this.currentPage)
-    }
-  }
-
-}
+      this.currentPage = Math.ceil(this.allmessages.length / this.pagesize, 0);
+      this.handleCurrentChange(this.currentPage);
+    },
+  },
+};
 </script>
 
 <style scoped>
+.capict {
+  opacity: 0.1;
+  color: aliceblue;
+}
+.mains {
+    width: 100%;
+    min-height: 100vh;
+    background-image: url("../../assets/messageboard2.jpg");
+    background-size: 100% 100%;
+    position:absolute;
+
+}
+/* .cell {
+  padding: 10px;
+  font-size: 14px;
+  line-height: 120%;
+  text-align: left;
+  border-bottom: 1px solid #e2e2e2;
+} */
 .el-card-d {
   float: left;
   margin-top: 20px;
@@ -142,20 +169,20 @@ export default {
   background: rgb(252, 250, 250);
 }
 
-.el-card-m{
-    height: 100px;
+.el-card-m {
+  height: 100px;
 }
 
-.el-card-m-content{
-    display: block;
-    font-weight: bold;
+.el-card-m-content {
+  display: block;
+  font-weight: bold;
 }
 
-.el-card-m-nick-name{
-    display: block;
-    font-size: x-small;
-    margin-top: 15px;
-    color: gray;
+.el-card-m-nick-name {
+  display: block;
+  font-size: x-small;
+  margin-top: 15px;
+  color: gray;
 }
 
 .el-card-messages {

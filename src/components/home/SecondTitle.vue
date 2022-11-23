@@ -134,21 +134,29 @@
         <div class="fucks content">
         <happy-scroll  size="2" left  color="rgba(75,0,130,0.2)">
           <section>
-          <!-- <div class="card box item-boder" v-for="(user, k) in users" :key="k">
+          <div class="card box item-boder" v-for="(user, k) in users" :key="k">
             <div class="card-content">
               <div class="media">
                 <div class="media-left">
-                    >
+
+                    <figure class="image is-48x48">
+                    <img
+                      :src="$store.state.user.userImg"
+                      class="size"
+                      alt=""
+                    />
+                  </figure>
                 </div>
                 <div class="media-content">
                   <p class="title is-5">
-                    <i class="fas">帮忙找一下，路边丢失的Mac Book Pro 16寸 1TB 32G</i>
+                    <i class="fas">Ming</i>
                   </p>
                 </div>
               </div>
               
               <div class="content">
                 <p>
+                  -帮忙找一下，路边丢失的Mac Book Pro 16寸 1TB 32G
                   -- 有线索请联系俺 754946573
                 </p>
                 <i class="far fa-hand-point-right">个人主页</i>
@@ -157,7 +165,8 @@
                 <br />
               </div>
             </div>
-          </div> -->
+          </div>
+
           <div class="card box item-boder" v-for="(user, k) in users" :key="k">
             <div class="card-content">
               <div class="media">
@@ -188,6 +197,7 @@
               </div>
             </div>
           </div>
+          
          
           </section>
         </happy-scroll>
