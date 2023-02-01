@@ -129,13 +129,13 @@
           <div class="sep20"></div>
           <div class="box" style="border-bottom:0px;">
             <div class="header">
-              <div class="fr" v-if="info.map">
+              <div class="fr" v-if="info.map.user">
                 <!-- <img :src="require(`../../assets/${info.user}`)" class="size" /> -->
                 <img :src="info.map.user.userImg" class="size" alt="">
               </div>
               <div class="sep10"></div>
               <h1>{{info.artTitle}}</h1>
-              <small class="gray">{{info.map.user.userName}}</small>
+              <small class="gray" v-if="info.map.user">{{info.map.user.userName}}</small>
             </div>
             <div class="cell">{{info.artContent}}</div>
           </div>
@@ -200,7 +200,7 @@
             </div>
             <div class="inner">
               <div class="fr">
-                <a href="#">← CP3</a>
+                <a href="#">← Top</a>
               </div>&nbsp;
             </div>
           </div>

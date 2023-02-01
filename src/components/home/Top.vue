@@ -10,8 +10,8 @@
     </template>
     <template #start>
       <b-navbar-item href="#" style="font-size: 20px"> 首页 </b-navbar-item>
-      <b-navbar-item href="#" style="font-size: 20px">
-        这里还不知道
+      <b-navbar-item @click="goto('/postArticle')" style="font-size: 20px">
+        快速发帖
       </b-navbar-item>
       <b-navbar-dropdown label="Info" style="font-size: 20px">
         <b-navbar-item href="http://42.192.90.40:4000/"> 博客 </b-navbar-item>
@@ -173,6 +173,9 @@ export default {
     }
   },
   methods: {
+    goto(path){
+      this.$router.push(path)
+    },
     logout() {
       this.$store.commit("logout");
       this.$store.commit("delToken");

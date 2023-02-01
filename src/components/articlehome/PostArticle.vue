@@ -81,7 +81,7 @@
               </div>
               <div class="cell" style="padding: 0px;">
                 <textarea
-                  v-model="title"
+                  v-model="objectArticle.title"
                   class="msl"
                   rows="1"
                   maxlength="120"
@@ -96,7 +96,7 @@
               </div>
 
               <form action>
-                <textarea name="post" cols="100" rows="10" v-model="text"></textarea>
+                <textarea name="post" cols="100" rows="10" v-model="objectArticle.text"></textarea>
               </form>
 
               <div class="cell">
@@ -108,9 +108,9 @@
                   tabindex="-1"
                   class="select2-hidden-accessible"
                   aria-hidden="true"
-                  v-model="select"
+                  v-model="objectArticle.select"
                 >
-                  <option value="1" data-select2-id="1069">篮球</option>
+                  <option value="1" data-select2-id="1069">寻物</option>
                   <option value="2" data-select2-id="1070">求助</option>
                   <option value="3" data-select2-id="1069">步行街</option>
                   <option value="4" data-select2-id="1069">跳蚤市场</option>
@@ -157,14 +157,16 @@
             <div class="cell">
               <div class="fr">
                 <span id="error_message"></span> &nbsp;
-                <button type="button" class="super normal button is-primary" @click="post">
+                <button type="button" class="super normal button is-primary" @click="post()">
                   <li class="fa fa-paper-plane"></li>&nbsp;发布
                 </button>
               </div>
-              <!-- <button class="super normal button" onclick="previewTopic();">
-                <li class="fa fa-eye"></li>&nbsp;
-              </button> -->
-               <b-field class="file is-primary" :class="{'has-name': !!file}">
+              
+              <button class="super normal button " >
+                <!-- <li class="fa fa-eye"></li>&nbsp; -->
+                <upload></upload>
+              </button>
+               <!-- <b-field class="file is-primary" :class="{'has-name': !!file}">
                 <b-upload v-model="file" class="file-label">
                     <span class="file-cta">
                         <b-icon class="file-icon" icon="upload"></b-icon>
@@ -174,7 +176,7 @@
                         {{ file.name }}
                     </span>
                 </b-upload>
-            </b-field>
+            </b-field> -->
             </div>
           </div>
         </div>
@@ -221,28 +223,67 @@
 
 <script>
 import axios from "axios";
+import upload from "../view/upload.vue"
+// 格式化时间函数
+import { parseTime } from "@/utils/index";
 export default {
+  components:{
+    upload
+  },
   data() {
     return {
-      select: "",
-      title: "",
-      text: "",
-      userId: "",
-      file: 
-          {
-            name: ""
-          }
+      objectArticle:{
+            select: "",
+            title: "",
+            text: "",
+            userId: "",
+            artCreTime:"",
+            file: 
+                {
+                  name: ""
+                } 
+      }
     };
+  },
+  created(){
+    //暂定不一定用
+    if(JSON.stringify(this.objectArticle) === "{}"){
+      this.$buefy.notification.open({
+                  message: '标题和内容不能为空!',
+                  type: 'is-danger'
+              })
+        
+            
+    }
   },
   methods: {
     post() {
-      this.userId = this.$store.state.user.userId;
+      this.objectArticle.userId = this.$store.state.user.userId;
+      // 生成时间
+      var timestamp = Date.parse(new Date());
+      
       axios.post("http://localhost:8081/service/add-article",{
-        typeName: this.select,
-        artTitle: this.title,
-        artContent: this.text,
-        userId: this.userId
+        typeName: this.objectArticle.select,
+        artTitle: this.objectArticle.title,
+        artContent: this.objectArticle.text,
+        userId: this.objectArticle.userId,
+        artCreTime:parseTime(timestamp, "{y}-{m}-{d} {h}:{i}:{s}")
 
+      }).then((response)=>{
+        console.log(response.data);
+        const data = response.data;
+        if(data.code===500){
+              this.$buefy.notification.open({
+                  message: '内容及标题不能为空！！！',
+                  type: 'is-danger'
+              })
+        } else if(data.code===200){
+              this.$buefy.notification.open({
+                  message: '发布成功',
+                  type: 'is-success'
+              })
+        }
+        
       })
     }
   }
@@ -340,7 +381,7 @@ body {
 #Wrapper {
   text-align: center;
   background-color: #e2e2e2;
-  background-image: url(../../assets/oops.png);
+  background-image: url(../../assets/post_back_two.png);
   background-repeat: repeat-x;
 }
 #Top > .content {

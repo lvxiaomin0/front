@@ -1,9 +1,10 @@
 <template>
   <div class="mains">
+    <img src="../../assets/messageboard3.jpg" class="topImg" >
     <div class="el-card-messages">
       <section>
         <b-field class="large">
-          <b-tag type="is-primary"> 有人看到了你的无助的眼神！ </b-tag>
+          <b-tag type="is-primary"> 有人看到了你无助的眼神！ </b-tag>
         </b-field>
       </section>
       
@@ -112,7 +113,7 @@ export default {
         this.nickName === "" ||
         this.nickName.replace(/(^\s*)|(\s*$)/g, "") === ""
       ) {
-        this.$message("请输入昵称");
+        this.$message("你还没有登录");
         return;
       }
       if (
@@ -141,6 +142,10 @@ export default {
 </script>
 
 <style scoped>
+.topImg {
+  width:900%;
+  
+}
 .capict {
   opacity: 0.1;
   color: aliceblue;
@@ -148,7 +153,8 @@ export default {
 .mains {
     width: 100%;
     min-height: 100vh;
-    background-image: url("../../assets/messageboard2.jpg");
+    /* background-image: url("../../assets/messageboard.jpg"); */
+    background-color: rgb(73,74,95);
     background-size: 100% 100%;
     position:absolute;
 

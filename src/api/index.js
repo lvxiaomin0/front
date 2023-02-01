@@ -2,16 +2,18 @@
 // import Qs from "qs";
 // import { SnackbarProgrammatic as Snackbar } from 'buefy'
 
+
 // //全局默认配置
 // axios.defaults.baseURL = "http://localhost:8081";
+
 // axios.interceptors.request.use(
-//     config => {
-//         console.log(config);
-//         return config;
-//     },
-//     err => {
-//         console.log(err);
-//     }
+//     // config => {
+//     //     console.log(config);
+//     //     return config;
+//     // },
+//     // err => {
+//     //     console.log(err);
+//     // }
 // );
 // // 设置请求传递数据的格式 json
 // axios.defaults.headers['Content-Type'] = 'application/json'

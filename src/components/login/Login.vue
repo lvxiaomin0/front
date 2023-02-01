@@ -136,6 +136,6 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-image: url("https://www.toptal.com/designers/subtlepatterns/uploads/memphis-colorful.png");
+  background-image: url("../../assets/login_position.png");
 }
 </style>

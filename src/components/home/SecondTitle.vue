@@ -119,10 +119,31 @@
           <div class="control">
             <div class="tags has-addons">
               <a class="tag is-dark" href="https://www.github.com">GitHub</a>
-              <a class="tag is-primary">6.6.6</a>
+              <a class="tag is-primary">1.0.53</a>
             </div>
           </div>
         </article>
+        <article class="tile is-child box">
+          <p class="title">外链</p>
+          <div class="control">
+            <div class="tags has-addons">
+              
+              <b-taglist attached>
+                  <a class="tag is-dark" href="https://www.github.com">GitHub</a>
+                  <a class="tag is-primary">1.0.53</a>
+                    <b-tag type="is-primary">npm</b-tag>
+                    <b-tag type="is-success">7.5.1</b-tag>
+                    <a class="tag is-primary" href="https://buefy.org/">Buefy</a>
+                    <a class="tag is-success">0.9.22</a>
+                    <a class="tag is-dark" href="https://sa-token.cc/">sa-token</a>
+                    <a class="tag is-success">1.34.0</a>
+                </b-taglist>
+                
+            </div>
+          </div>
+          
+        </article>
+        
       </div>
     </div>
       <!-- 寻物启事 -->
@@ -167,7 +188,7 @@
             </div>
           </div>
 
-          <div class="card box item-boder" v-for="(user, k) in users" :key="k">
+          <!-- <div class="card box item-boder" v-for="(user, k) in users" :key="k">
             <div class="card-content">
               <div class="media">
                 <div class="media-left">
@@ -196,7 +217,7 @@
                 <br />
               </div>
             </div>
-          </div>
+          </div> -->
           
          
           </section>

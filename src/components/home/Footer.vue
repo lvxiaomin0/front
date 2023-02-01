@@ -6,7 +6,7 @@
         <a href="https://github.com/Ming" style="color:White">. Ming</a>
         <a href="https://github.com/ming/melon" style="color:White">1.0</a>.
         <a class="tag is-dark" href="https://www.github.com">GitHub</a>
-        <a class="tag is-primary">6.6.6</a>
+        <a class="tag is-primary">1.0.53</a>
         
         
       </p>
