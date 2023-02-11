@@ -1,6 +1,6 @@
 <template>
     <b-field class="file is-primary" :class="{'has-name': !!file}">
-        <b-upload v-model="file" class="file-label">
+        <b-upload v-model="file" class="file-label" multiple= "true">
             <span class="file-cta">
                 <b-icon class="file-icon" icon="upload"></b-icon>
                 <span class="file-label">Click to upload</span>

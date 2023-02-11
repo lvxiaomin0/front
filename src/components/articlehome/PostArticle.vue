@@ -2,7 +2,7 @@
   <div>
     <div id="Top">
       <div class="content">
-        <div style="padding-top: 6px;">
+        <div style="padding-top: 6px">
           <table cellpadding="0" cellspacing="0" border="0" width="100%">
             <tbody>
               <tr>
@@ -12,7 +12,7 @@
                   </a>
                 </td>
                 <td width="auto" align="left"></td>
-                <td width="570" align="right" style="padding-top: 2px;">
+                <td width="570" align="right" style="padding-top: 2px">
                   <a href="/" class="top">首页</a>
                   &nbsp;&nbsp;&nbsp;
                 </td>
@@ -30,21 +30,27 @@
           <div class="box">
             <div class="cell">发帖提示</div>
             <div class="inner">
-              <ul style="margin-top: 0px;">
+              <ul style="margin-top: 0px">
                 <li>
                   <span class="f13">主题标题</span>
-                  <div class="sep10"></div>请在标题中描述内容要点。
+                  <div class="sep10"></div>
+                  请在标题中描述内容要点。
                   <div class="sep10"></div>
                 </li>
                 <li>
-                  <div class="fr" style="margin-top: -5px; margin-right: 5px;"></div>
+                  <div
+                    class="fr"
+                    style="margin-top: -5px; margin-right: 5px"
+                  ></div>
                   <span class="f13">正文</span>
-                  <div class="sep10"></div>可以在正文中为你要发布的主题添加更多细节。
+                  <div class="sep10"></div>
+                  可以在正文中为你要发布的主题添加更多细节。
                   <div class="sep10"></div>
                 </li>
                 <li>
                   <span class="f13">选择板块</span>
-                  <div class="sep10"></div>在最后，请为你的主题选择一个板块。恰当的归类会让你发布的信息更加有用。
+                  <div class="sep10"></div>
+                  在最后，请为你的主题选择一个板块。恰当的归类会让你发布的信息更加有用。
                   <div class="sep10"></div>
                 </li>
               </ul>
@@ -54,15 +60,17 @@
           <div class="box">
             <div class="cell">论坛原则</div>
             <div class="inner">
-              <ul style="margin-top: 0px;">
+              <ul style="margin-top: 0px">
                 <li>
                   <span class="f13">尊重原创</span>
-                  <div class="sep10"></div>请不要在该论坛发布任何盗版下载链接，包括软件、音乐、电影等等。
+                  <div class="sep10"></div>
+                  请不要在该论坛发布任何盗版下载链接，包括软件、音乐、电影等等。
                   <div class="sep10"></div>
                 </li>
                 <li>
                   <span class="f13">友好互助</span>
-                  <div class="sep10"></div>保持对陌生人的友善。用知识去帮助别人。
+                  <div class="sep10"></div>
+                  保持对陌生人的友善。用知识去帮助别人。
                 </li>
               </ul>
             </div>
@@ -72,14 +80,15 @@
           <div class="sep20"></div>
           <div class="box" id="box">
             <div class="cell">
-              <a href="/">{{$store.state.user.userName}}</a>
+              <a href="/">{{ $store.state.user.userName }}</a>
               <span class="chevron">&nbsp;›&nbsp;</span> 发表新帖
             </div>
             <form method="post" action="/new" id="compose">
               <div class="cell">
-                <div class="fr fade" id="title_remaining">120</div>帖子标题
+                <div class="fr fade" id="title_remaining">120</div>
+                帖子标题
               </div>
-              <div class="cell" style="padding: 0px;">
+              <div class="cell" style="padding: 0px">
                 <textarea
                   v-model="objectArticle.title"
                   class="msl"
@@ -92,18 +101,25 @@
                 ></textarea>
               </div>
               <div class="cell">
-                <div class="fr fade" id="content_remaining">20000</div>正文
+                <div class="fr fade" id="content_remaining">20000</div>
+                正文
               </div>
 
               <form action>
-                <textarea name="post" cols="100" rows="10" v-model="objectArticle.text"></textarea>
+                <textarea
+                  name="post"
+                  cols="100"
+                  rows="10"
+                  style="resize:none; width:100%; overflow:auto; word-break:break-all;"
+                  v-model="objectArticle.text"
+                ></textarea>
               </form>
 
               <div class="cell">
                 <select
                   name="node_name"
                   id="nodes"
-                  style="width: 300px; font-size: 14px;"
+                  style="width: 300px; font-size: 14px"
                   data-select2-id="nodes"
                   tabindex="-1"
                   class="select2-hidden-accessible"
@@ -121,7 +137,7 @@
                   class="select2 select2-container select2-container--default"
                   dir="ltr"
                   data-select2-id="1"
-                  style="width: 300px;"
+                  style="width: 300px"
                 >
                   <span class="selection">
                     <span
@@ -139,9 +155,14 @@
                         role="textbox"
                         aria-readonly="true"
                       >
-                        <span class="select2-selection__placeholder">请选择一个板块</span>
+                        <span class="select2-selection__placeholder"
+                          >请选择一个板块</span
+                        >
                       </span>
-                      <span class="select2-selection__arrow" role="presentation">
+                      <span
+                        class="select2-selection__arrow"
+                        role="presentation"
+                      >
                         <b role="presentation"></b>
                       </span>
                     </span>
@@ -153,20 +174,26 @@
               <input type="hidden" name="content" value id="topic_content" />
               <input type="hidden" name="once" value="97891" />
             </form>
-           
+
             <div class="cell">
               <div class="fr">
                 <span id="error_message"></span> &nbsp;
-                <button type="button" class="super normal button is-primary" @click="post()">
-                  <li class="fa fa-paper-plane"></li>&nbsp;发布
+                <button
+                  type="button"
+                  class="super normal button is-primary"
+                  @click="post()"
+                >
+                  <li class="fa fa-paper-plane"></li>
+                  &nbsp;发布
                 </button>
               </div>
-              
-              <button class="super normal button " >
-                <!-- <li class="fa fa-eye"></li>&nbsp; -->
+              <!-- <uploadplus></uploadplus> -->
+              <!-- <upload></upload> -->
+              <!-- <button class="super normal button " >
+                <li class="fa fa-eye"></li>&nbsp;
                 <upload></upload>
-              </button>
-               <!-- <b-field class="file is-primary" :class="{'has-name': !!file}">
+              </button> -->
+              <!-- <b-field class="file is-primary" :class="{'has-name': !!file}">
                 <b-upload v-model="file" class="file-label">
                     <span class="file-cta">
                         <b-icon class="file-icon" icon="upload"></b-icon>
@@ -177,6 +204,55 @@
                     </span>
                 </b-upload>
             </b-field> -->
+              <el-upload
+                action=""
+                :auto-upload="true"
+                list-type="picture-card"
+                :http-request="handlerUpload"
+                multiple
+                
+                
+              >
+                <i slot="default" class="el-icon-plus"></i>
+
+                <div slot="file" slot-scope="{ file }">
+                  <img
+                    class="el-upload-list__item-thumbnail"
+                    :src="file.url"
+                    alt=""
+                    
+                  />
+
+                  <span class="el-upload-list__item-actions">
+                    <span
+                      class="el-upload-list__item-preview"
+                      @click="handlePictureCardPreview(file)"
+                    >
+                      <i class="el-icon-zoom-in"></i>
+                    </span>
+
+                    <span
+                      v-if="!disabled"
+                      class="el-upload-list__item-delete"
+                      @click="handleDownload(file)"
+                    >
+                      <i class="el-icon-download"></i>
+                    </span>
+
+                    <span
+                      v-if="!disabled"
+                      class="el-upload-list__item-delete"
+                      @click="handleRemove(file)"
+                    >
+                      <i class="el-icon-delete"></i>
+                    </span>
+                  </span>
+                </div>
+              </el-upload>
+              <!-- 查看大图 -->
+              <el-dialog :visible.sync="dialogVisible">
+                  <img width="100%" :src="dialogImageUrl" alt="" />
+                </el-dialog>
             </div>
           </div>
         </div>
@@ -189,7 +265,10 @@
         <div class="inner">
           <div class="sep10"></div>
           <div class="fr">
-            <a href="https://www.digitalocean.com/?refcode=1b51f1a7651d" target="_blank">
+            <a
+              href="https://www.digitalocean.com/?refcode=1b51f1a7651d"
+              target="_blank"
+            >
               <div id="DigitalOcean"></div>
             </a>
           </div>
@@ -207,8 +286,10 @@
             &nbsp;
           </strong>
           &nbsp;
-          <div class="sep20"></div>创意工作者们的社区
-          <div class="sep5"></div>World is powered by solitude
+          <div class="sep20"></div>
+          创意工作者们的社区
+          <div class="sep5"></div>
+          World is powered by solitude
           <div class="sep20"></div>
           <span class="small fade">
             <br />♥ Do have faith in what you're doing.
@@ -223,70 +304,112 @@
 
 <script>
 import axios from "axios";
-import upload from "../view/upload.vue"
+import upload from "../view/upload.vue";
 // 格式化时间函数
 import { parseTime } from "@/utils/index";
+
+
+import uploadplus from "../view/upload-plus.vue";
+
 export default {
-  components:{
-    upload
+  components: {
+    upload,
+    uploadplus,
   },
   data() {
     return {
-      objectArticle:{
-            select: "",
-            title: "",
-            text: "",
-            userId: "",
-            artCreTime:"",
-            file: 
-                {
-                  name: ""
-                } 
-      }
+      objectArticle: {
+        select: "",
+        title: "",
+        text: "",
+        userId: "",
+        artCreTime: "",
+        
+      },
+      imagesList: [],
+      dialogImageUrl: "",
+      dialogVisible: false,
+      disabled: false,
+      
+      
     };
   },
-  created(){
+  created() {
     //暂定不一定用
-    if(JSON.stringify(this.objectArticle) === "{}"){
+    if (JSON.stringify(this.objectArticle) === "{}") {
       this.$buefy.notification.open({
-                  message: '标题和内容不能为空!',
-                  type: 'is-danger'
-              })
-        
-            
+        message: "标题和内容不能为空!",
+        type: "is-danger",
+      });
     }
   },
   methods: {
+    //上传图片
+    handlerUpload(data){
+      this.imagesList.push(data.file)
+      
+    },
+    //移除图片
+    handleRemove(file) {
+      console.log(file);
+      
+    },
+    //查看大图
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    },
+    //下载图片
+    handleDownload(file) {
+      console.log(file);
+    },
+    //上传
     post() {
+      console.log(this);
       this.objectArticle.userId = this.$store.state.user.userId;
       // 生成时间
       var timestamp = Date.parse(new Date());
-      
-      axios.post("http://localhost:8081/service/add-article",{
-        typeName: this.objectArticle.select,
-        artTitle: this.objectArticle.title,
-        artContent: this.objectArticle.text,
-        userId: this.objectArticle.userId,
-        artCreTime:parseTime(timestamp, "{y}-{m}-{d} {h}:{i}:{s}")
-
-      }).then((response)=>{
-        console.log(response.data);
-        const data = response.data;
-        if(data.code===500){
-              this.$buefy.notification.open({
-                  message: '内容及标题不能为空！！！',
-                  type: 'is-danger'
-              })
-        } else if(data.code===200){
-              this.$buefy.notification.open({
-                  message: '发布成功',
-                  type: 'is-success'
-              })
-        }
-        
-      })
+      //上传表单
+      // axios
+      //   .post("http://localhost:8081/service/add-article", {
+      //     artTypeId: this.objectArticle.select,
+      //     artTitle: this.objectArticle.title,
+      //     artContent: this.objectArticle.text,
+      //     artUserId: this.objectArticle.userId,
+      //     artCreTime: parseTime(timestamp, "{y}-{m}-{d} {h}:{i}:{s}"),
+      //   })
+      //   .then((response) => {
+      //     console.log(response.data);
+      //     const data = response.data;
+      //     if (data.code === 500) {
+      //       this.$buefy.notification.open({
+      //         message: "咱不能啥也不写吧！！！",
+      //         type: "is-danger",
+      //       });
+      //     } else if (data.code === 200) {
+      //       this.$buefy.notification.open({
+      //         message: "发布成功",
+      //         type: "is-success",
+      //       });
+      //     }
+      //   });
+        //上传图片
+        var formData = new FormData();
+        formData.append("file",this.imagesList[0]);
+        console.log(formData);
+          axios({
+              url: "http://localhost:8081/upload/updateFile",
+              data: formData,
+              method: "post",
+              headers: {
+                "Content-Type": "multipart/form-data"
+              }
+        }).then((response)=>{
+            console.log(response);
+        })
+        ;
     }
-  }
+  },
 };
 </script>
 

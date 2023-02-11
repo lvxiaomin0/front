@@ -2,6 +2,8 @@
 // import Qs from "qs";
 // import { SnackbarProgrammatic as Snackbar } from 'buefy'
 
+// import axios from "axios"
+
 
 // //全局默认配置
 // axios.defaults.baseURL = "http://localhost:8081";
@@ -51,7 +53,16 @@
 //         Qs.stringify({ email, password })
 //     );
 // };
-
+// export const uploadImage = (data) =>{
+//     return axios({
+//         method: "post",
+//         headers: {
+//             "Content-Type": "multipart/form-data",
+//         },
+//         url: "",
+//         data: data
+//     })
+// }
 // export const getAllArticle = (page) => {
 //     return axios.post("/pagearticle", Qs.stringify({ page }));
 // };
