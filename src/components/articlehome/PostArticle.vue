@@ -80,7 +80,7 @@
           <div class="sep20"></div>
           <div class="box" id="box">
             <div class="cell">
-              <a href="/">{{ $store.state.user.userName }}</a>
+              <a href="/">{{ this.$store.state.user.userName }}</a>
               <span class="chevron">&nbsp;›&nbsp;</span> 发表新帖
             </div>
             <form method="post" action="/new" id="compose">
@@ -110,7 +110,12 @@
                   name="post"
                   cols="100"
                   rows="10"
-                  style="resize:none; width:100%; overflow:auto; word-break:break-all;"
+                  style="
+                    resize: none;
+                    width: 100%;
+                    overflow: auto;
+                    word-break: break-all;
+                  "
                   v-model="objectArticle.text"
                 ></textarea>
               </form>
@@ -181,37 +186,19 @@
                 <button
                   type="button"
                   class="super normal button is-primary"
-                  @click="post()"
+                  @click="upload()"
                 >
                   <li class="fa fa-paper-plane"></li>
                   &nbsp;发布
                 </button>
               </div>
-              <!-- <uploadplus></uploadplus> -->
-              <!-- <upload></upload> -->
-              <!-- <button class="super normal button " >
-                <li class="fa fa-eye"></li>&nbsp;
-                <upload></upload>
-              </button> -->
-              <!-- <b-field class="file is-primary" :class="{'has-name': !!file}">
-                <b-upload v-model="file" class="file-label">
-                    <span class="file-cta">
-                        <b-icon class="file-icon" icon="upload"></b-icon>
-                        <span class="file-label">图片or视频</span>
-                    </span>
-                    <span class="file-name" v-if="file">
-                        {{ file.name }}
-                    </span>
-                </b-upload>
-            </b-field> -->
+
               <el-upload
                 action=""
                 :auto-upload="true"
                 list-type="picture-card"
                 :http-request="handlerUpload"
                 multiple
-                
-                
               >
                 <i slot="default" class="el-icon-plus"></i>
 
@@ -220,7 +207,6 @@
                     class="el-upload-list__item-thumbnail"
                     :src="file.url"
                     alt=""
-                    
                   />
 
                   <span class="el-upload-list__item-actions">
@@ -251,8 +237,8 @@
               </el-upload>
               <!-- 查看大图 -->
               <el-dialog :visible.sync="dialogVisible">
-                  <img width="100%" :src="dialogImageUrl" alt="" />
-                </el-dialog>
+                <img width="100%" :src="dialogImageUrl" alt="" />
+              </el-dialog>
             </div>
           </div>
         </div>
@@ -308,7 +294,6 @@ import upload from "../view/upload.vue";
 // 格式化时间函数
 import { parseTime } from "@/utils/index";
 
-
 import uploadplus from "../view/upload-plus.vue";
 
 export default {
@@ -323,15 +308,11 @@ export default {
         title: "",
         text: "",
         userId: "",
-        artCreTime: "",
-        
       },
       imagesList: [],
       dialogImageUrl: "",
       dialogVisible: false,
       disabled: false,
-      
-      
     };
   },
   created() {
@@ -343,16 +324,18 @@ export default {
       });
     }
   },
+  mounted() {
+    this.objectArticle.userId = this.$store.state.user.userId;
+  },
+
   methods: {
     //上传图片
-    handlerUpload(data){
-      this.imagesList.push(data.file)
-      
+    handlerUpload(data) {
+      this.imagesList.push(data.file);
     },
     //移除图片
     handleRemove(file) {
       console.log(file);
-      
     },
     //查看大图
     handlePictureCardPreview(file) {
@@ -363,52 +346,91 @@ export default {
     handleDownload(file) {
       console.log(file);
     },
-    //上传
+    //upload
+    upload() {
+      var formData = new FormData();
+      formData.append("artTypeId", this.objectArticle.select);
+      formData.append("artTitle", this.objectArticle.title);
+      formData.append("artContent", this.objectArticle.text);
+      formData.append("artUserId", this.objectArticle.userId);
+      for (let index = 0; index < this.imagesList.length; index++) {
+        formData.append("file", this.imagesList[index]);
+      }
+      axios({
+        url: "http://localhost:8081/service/add-article",
+        data: formData,
+        method: "post",
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }).then((response) => {
+        console.log(response.data);
+        const data = response.data;
+        if (data.code === 500) {
+          this.$buefy.notification.open({
+            message: "咱不能啥也不写吧！！！",
+            type: "is-danger",
+          });
+        } else if (data.code === 200) {
+          location.reload();
+          this.$buefy.notification.open({
+            message: "发布成功",
+            type: "is-success",
+          });
+          
+        }
+      });
+    },
+
+    //上传  --已废弃
     post() {
       console.log(this);
       this.objectArticle.userId = this.$store.state.user.userId;
       // 生成时间
       var timestamp = Date.parse(new Date());
-      //上传表单
-      // axios
-      //   .post("http://localhost:8081/service/add-article", {
-      //     artTypeId: this.objectArticle.select,
-      //     artTitle: this.objectArticle.title,
-      //     artContent: this.objectArticle.text,
-      //     artUserId: this.objectArticle.userId,
-      //     artCreTime: parseTime(timestamp, "{y}-{m}-{d} {h}:{i}:{s}"),
-      //   })
-      //   .then((response) => {
-      //     console.log(response.data);
-      //     const data = response.data;
-      //     if (data.code === 500) {
-      //       this.$buefy.notification.open({
-      //         message: "咱不能啥也不写吧！！！",
-      //         type: "is-danger",
-      //       });
-      //     } else if (data.code === 200) {
-      //       this.$buefy.notification.open({
-      //         message: "发布成功",
-      //         type: "is-success",
-      //       });
-      //     }
-      //   });
-        //上传图片
-        var formData = new FormData();
-        formData.append("file",this.imagesList[0]);
-        console.log(formData);
-          axios({
-              url: "http://localhost:8081/upload/updateFile",
-              data: formData,
-              method: "post",
-              headers: {
-                "Content-Type": "multipart/form-data"
-              }
-        }).then((response)=>{
-            console.log(response);
+      // 上传表单
+      var formData = new FormData();
+      axios
+        .post("http://localhost:8081/service/add-article", {
+          artTypeId: this.objectArticle.select,
+          artTitle: this.objectArticle.title,
+          artContent: this.objectArticle.text,
+          artUserId: this.objectArticle.userId,
+          artCreTime: parseTime(timestamp, "{y}-{m}-{d} {h}:{i}:{s}"),
+          artImages: this.imagesList,
         })
-        ;
-    }
+        .then((response) => {
+          console.log(response.data);
+          const data = response.data;
+          if (data.code === 500) {
+            this.$buefy.notification.open({
+              message: "咱不能啥也不写吧！！！",
+              type: "is-danger",
+            });
+          } else if (data.code === 200) {
+            this.$buefy.notification.open({
+              message: "发布成功",
+              type: "is-success",
+            });
+          }
+        });
+      //上传图片 --已废弃
+      var formData = new FormData();
+      for (let index = 0; index < this.imagesList.length; index++) {
+        formData.append("file", this.imagesList[index]);
+      }
+      console.log(formData);
+      axios({
+        url: "http://localhost:8081/upload/updateFile",
+        data: formData,
+        method: "post",
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }).then((response) => {
+        console.log(response);
+      });
+    },
   },
 };
 </script>

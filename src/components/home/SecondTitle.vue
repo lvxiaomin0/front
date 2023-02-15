@@ -74,20 +74,20 @@
                     <span class="icon is-small">
                         <i class="fab fa-hotjar"></i>
                       </span>
-                      {{"热度"}}
+                      {{item.artHotNum+"热度"}}
                   </a>
                   <a>
                       <span class="icon is-small">
                         <i class="fas fa-comment-dots"></i>
                       </span>
-                      {{"评论"}}
+                      {{item.artComNum+"评论"}}
                     </a>
 
                     <a>
                       <span class="icon is-small">
                         <i class="fas fa-heart"></i>
                       </span>
-                      {{"喜欢"}}
+                      {{item.artLikeNum+"喜欢"}}
                     </a>
                   </div>
                 </nav>
@@ -304,7 +304,7 @@ export default {
         }
       });
     },
-
+    //获取文章
     getArticle(){
       axios.get(
         "http://localhost:8081/service/get-article"
@@ -313,7 +313,9 @@ export default {
         this.info = response.data.data;
         console.log("info:",this.info);
       })
-    }
+    },
+
+
   },
   mounted(){
     this.getArticle()

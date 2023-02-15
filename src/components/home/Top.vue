@@ -175,6 +175,7 @@ export default {
   methods: {
     goto(path){
       this.$router.push(path)
+      
     },
     logout() {
       this.$store.commit("logout");

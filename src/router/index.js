@@ -69,6 +69,7 @@ export default new VueRouter({
           name: "new",
           component: () => import("../components/view/new.vue")
         },
+       
         
        
         

@@ -10,7 +10,7 @@
         </b-navbar-item>
       </template>
       <template slot="start" >
-        <b-navbar-item href="#" >首页</b-navbar-item>
+        <b-navbar-item href="#" >她在天空看过多少次遗忘~</b-navbar-item>
       </template>
     </b-navbar>
     <div class="Wrapper">
@@ -61,7 +61,7 @@
                       align="center"
                     >
                       <a href="#" class="dark" style="display: block;">
-                        <span class="bigger">{{"1"}}</span>
+                        <span class="bigger">{{1}}</span>
                         <div class="sep3"></div>
                         <span class="fade">你的帖子</span>
                       </a>
@@ -92,8 +92,13 @@
                       </a>
                     </td>
                     <td width="10"></td>
-                    <td width="auto" valign="middle" align="left">
-                      <!-- <a @click="newcomment">在此贴发表评论</a> -->
+                    <td width="auto" valign="middle" align="left" >
+                      <!-- <a >这是点赞</a>
+                      &nbsp;
+                      <a >这是收藏</a> -->
+                      <Nice></Nice>
+                      
+                      
                     </td>
                   </tr>
                 </tbody>
@@ -129,27 +134,28 @@
           <div class="sep20"></div>
           <div class="box" style="border-bottom:0px;">
             <div class="header">
-              <div class="fr" v-if="info.map.user">
+              <div class="fr" v-if="info">
                 <!-- <img :src="require(`../../assets/${info.user}`)" class="size" /> -->
-                <img :src="info.map.user.userImg" class="size" alt="">
+                <img :src="info.artImage" class="size" alt="">
               </div>
               <div class="sep10"></div>
               <h1>{{info.artTitle}}</h1>
+
               <small class="gray" v-if="info.map.user">{{info.map.user.userName}}</small>
             </div>
             <div class="cell">{{info.artContent}}</div>
           </div>
+
           <div class="sep20"></div>
           <div class="box">
             <div class="cell">回复</div>
             <div class="fuck"></div>
-            <div class="cell" v-for="(c, index) in comments" :key="index">
+            <div class="cell" v-for="(index,item) in comments" :key="item">
               <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                <tbody>
+                <tbody v-if="index.map">
                   <tr>
-                    <td width="48" valign="top" align="center">
-                      <!-- <img :src="require(`@/assets/${c.user}`)" /> -->
-                      <img src="../../assets/login_background_png.png" class="size" alt="">
+                    <td width="48" valign="top" align="center" >
+                      <img :src="index.map.user.userImg" class="size" alt="">
                     </td>
                     <td width="10" valign="top"></td>
                     <td width="auto" valign="top" align="left">
@@ -159,11 +165,11 @@
                       </div>
                       <div class="sep3"></div>
                       <strong>
-                        <a href="#" class="dark">{{"小明同学"}}</a>
+                        <a class="dark">{{index.map.user.userName}}</a>
                       </strong>&nbsp; &nbsp;
-                      <span class="ago">{{"我是评论时间(待开发)"}}</span>
+                      <span class="ago">{{index.comTime}}</span>
                       <div class="sep5"></div>
-                      <div class="reply_content">{{"我是评论内容(待开发)"}}</div>
+                      <div class="reply_content">{{index.comContent}}</div>
                     </td>
                   </tr>
                 </tbody>
@@ -182,12 +188,12 @@
             <div class="cell">
               <form>
                 <textarea
-                  v-model="text"
+                  v-model="reply_content"
                   name="content"
                   maxlength="10000"
                   class="mll"
                   id="reply_content"
-                  style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 112px;"
+                  style="overflow: auto; word-break: break-all; resize: none; height: 112px;width: 100%;"
                 ></textarea>
                 <div class="sep10"></div>
                 <div class="fr">
@@ -195,7 +201,7 @@
                   <span class="gray">请尽量让自己的回复能够对别人有帮助</span>
                 </div>
                 <input type="hidden" value="41475" name="once" />
-                <input type="button" value="回复" class="super normal button"  />
+                <input type="button" value="回复" class="super normal button" @click="SetComments()" />
               </form>
             </div>
             <div class="inner">
@@ -235,20 +241,23 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Login from "../login/Login.vue"
+import Nice from "../view/nice.vue"
 export default {
   components: {
-    Login
+    Login,
+    Nice
   },
   data() {
     return {
       myartnum: 0,
-      text: "",
+      reply_content: "",
       info: [
         {
           article: {
             artId: 0,
-            artUserId: 1,
+            artUserId: 0,
             artTitle: "",
             artTypeId: 0,
             artContent: "",
@@ -257,7 +266,8 @@ export default {
             artView: "",
             artComNum: 0,
             artHotNum: 0,
-            artLikeNum: 0
+            artLikeNum: 0,
+            artImage: ""
           },
           user: {
             userId: 0,
@@ -307,11 +317,32 @@ export default {
   },
   mounted(){
     this.info = JSON.parse(this.$route.query.detaildata);
+    this.GetComments();
   },
   methods:{
     Post() {
       this.$router.push("/postarticle");
     },
+    GetComments(){
+       axios.get("http://localhost:8081/comments/get-comments?artId="+this.info.artId,{
+      }).then((response)=>{
+        this.comments = response.data.data;
+      })
+
+    },
+    SetComments(){
+      axios.post("http://localhost:8081/comments/set-comments",{
+        comArtId: this.info.artId,
+        comUserId: this.info.artUserId,
+        comContent: this.reply_content,
+      }).then((response)=>{
+        if(response.data.code === 200){
+          location.reload();
+        }
+        
+      })
+
+    }
   }
 
  
@@ -319,6 +350,13 @@ export default {
 </script>
 
 <style scoped>
+@import url("//at.alicdn.com/t/c/font_3724495_47d4vtspf88.css");
+.icon {
+       width: 1em; height: 1em;
+       vertical-align: -0.15em;
+       fill: currentColor;
+       overflow: hidden;
+    }
 textarea {
   -webkit-writing-mode: horizontal-tb !important;
   text-rendering: auto;
