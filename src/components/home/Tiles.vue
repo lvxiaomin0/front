@@ -14,7 +14,6 @@
           </div> -->
 
         <div class="tile is-child is-10" id="mood">
-          <!-- <Mood></Mood> -->
           <div>
             <el-carousel
               :interval="3000"
@@ -30,25 +29,14 @@
               >
                 <!-- <h3 class="medium">{{ item }}</h3> -->
                 <el-link type="primary">{{ item.info.infoItem }}</el-link>
+                <br />
+                <el-link type="primary">{{ item.info.infoAuth }}</el-link>
                 <!-- <el-link type="info">{{item.info}}</el-link> -->
               </el-carousel-item>
             </el-carousel>
           </div>
 
-          <!-- <div>
-              <marquee behavior="scroll" direction="up" scrolldelay="500" scrollamount="2">
-              <el-link type="primary">没有BUG的代码是不完美的！ --Sodium_Sulfate</el-link>
-              </marquee>
-              <br>
-              <el-link type="success">大本钟下送快递——上面摆，下面寄。 --饭堂周末夜</el-link>
-              <br>
-              <el-link type="warning">你，对，你，就是你，你是你。 --什</el-link>
-              <br>
-              <el-link type="danger">当遇到你时，大脑连上CSGO都会掉帧。 --Florence</el-link>
-              <br>
-              <el-link type="info">一旦醉心于狩猎，不到最后关头不会发现自己才是猎物。 --来自新世界</el-link> 
-      
-            </div> -->
+         
         </div>
       </article>
     </div>
@@ -196,22 +184,33 @@ export default {
         {
           info: {
             infoItem: "就算是自私……我也希望那些人能够永远都有笑容……",
+            infoAuth: "明哥哥"
           },
+          
         },
         {
           info: {
             infoItem: "越是试着忘记，越是记得深刻 。",
+            infoAuth: "明哥哥哦"
           },
         },
         {
           info: {
             infoItem:
               "温柔正确的人总是难以生存，因为这世界既不温柔，也不正确。",
+              infoAuth: "明哥哥呢"
           },
         },
         {
           info: {
             infoItem: "昭昭若日月之明，离离如星辰之行。",
+            infoAuth: "明哥哥呀"
+          },
+        },
+        {
+          info: {
+            infoItem: "不努力就只有看别人收到好消息~Q.q",
+            infoAuth: "明哥哥呀哈"
           },
         },
       ],

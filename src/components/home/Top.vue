@@ -13,7 +13,7 @@
       <b-navbar-item @click="goto('/postArticle')" style="font-size: 20px">
         快速发帖
       </b-navbar-item>
-      <b-navbar-dropdown label="Info" style="font-size: 20px">
+      <b-navbar-dropdown label="更多" style="font-size: 20px">
         <b-navbar-item href="http://42.192.90.40:4000/"> 博客 </b-navbar-item>
         <b-navbar-item href="#"> 联系我 </b-navbar-item>
       </b-navbar-dropdown>
@@ -55,9 +55,7 @@
           </p>
         </figure> -->
         <div class="buttons">
-          <!-- <a class="button is-primary" @click="logout">
-            <strong>LogOut</strong>
-          </a> -->
+          
           <section>
             <b-sidebar
               type="is-light"
@@ -74,7 +72,7 @@
                 /> -->
                 <figure class="media-rigit">
                   <p class="image is-40x40">
-                    <img :src="users.userImg" class="size" alt="Lightweight UI components for Vue.js based on Bulma" />
+                    <img :src="users.userImg" class="size" alt="你还没有上传自己的头像" />
                     {{users.userName}}--已登录{{users.userStatus}}
                   </p>
                 </figure>
@@ -83,7 +81,9 @@
                     <b-menu-item
                       icon="information-outline"
                       label="Info"
+                      @click="goto('/userhome')"
                     ></b-menu-item>
+
                     <b-menu-item icon="settings">
                       <template #label="props">
                         Administrator
@@ -127,6 +127,7 @@
                       <b-menu-item label="Addresses"></b-menu-item>
                     </b-menu-item>
                   </b-menu-list>
+
                   <b-menu-list>
                     <b-menu-item
                       label="Expo"
@@ -144,7 +145,9 @@
                     <b-menu-item label="注销账号" click=""></b-menu-item>
                   </b-menu-list>
                 </b-menu>
+                
               </div>
+              <img src="../../assets/buefy-logo2.png" alt="" srcset="">
             </b-sidebar>
             <b-button class="button is-primary" size="is-small" @click="getCahe">
                 <i class="iconfont icon-youzhijiantou1"></i>

@@ -32,4 +32,8 @@ export default {
 
 
 <style scoped>
+@import "../../assets/font.css";
+ body{
+  font-family: alimama;
+ }
 </style>

@@ -35,7 +35,6 @@ export default {
   name: "Intersting",
   data() {
     return {
-      isImageModalActive: false,
       isCardModalActive: false,
     };
   },

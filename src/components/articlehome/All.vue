@@ -175,6 +175,10 @@ export default {
 </script>
 
 <style scoped>
+@import "../../assets/font.css";
+ body{
+  font-family: alimama;
+ }
 .size {
   width: 64px;
   height: 64px;

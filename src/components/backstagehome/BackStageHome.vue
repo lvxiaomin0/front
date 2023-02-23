@@ -44,6 +44,10 @@ export default {
 
 
 <style scoped>
+@import "../../assets/font.css";
+ body{
+  font-family: alimama;
+ }
 .el-header,
 .el-footer {
   background-color: #b3c0d1;

@@ -52,6 +52,7 @@ const mutations = {
         state.loginuser.userTime = payload.userTime;
         state.loginuser.userStatus = payload.userStatus;
         state.loginuser.userConcern = payload.userConcern;
+        state.loginuser.userBlog = payload.userBlog;
         window.localStorage.setItem("user",JSON.stringify(state.loginuser));
     }
 
@@ -70,6 +71,9 @@ const state = {
         userShow: window.localStorage.getItem('user' || '[]') == null ? '' : JSON.parse(window.localStorage.getItem('user' || '[]')).userShow,
         userSex: window.localStorage.getItem('user' || '[]') == null ? '' : JSON.parse(window.localStorage.getItem('user' || '[]')).userSex,
         userPhone: window.localStorage.getItem('user' || '[]') == null ? '' : JSON.parse(window.localStorage.getItem('user' || '[]')).userPhone,
+        userTime: window.localStorage.getItem('user' || '[]') == null ? '' : JSON.parse(window.localStorage.getItem('user' || '[]')).userTime,
+        userStatus: window.localStorage.getItem('user' || '[]') == null ? '' : JSON.parse(window.localStorage.getItem('user' || '[]')).userStatus,
+        userEmail: window.localStorage.getItem('user' || '[]') == null ? '' : JSON.parse(window.localStorage.getItem('user' || '[]')).userEmail,
       },
     satoken:"",
     registeruser: {
@@ -91,7 +95,8 @@ const state = {
         userPhone: "",
         userStatus: null,
         userTime: null,
-        userConcern: 0
+        userConcern: 0,
+        userBlog: ""
     }
 }
 const getters = {

@@ -12,6 +12,7 @@
     "buefy": "^0.9.21",
     "bulma": "^0.9.4",
     "core-js": "^3.8.3",
+    "cos-nodejs-sdk-v5": "^2.11.19",
     "element-ui": "^2.15.9",
     "less-loader": "^11.1.0",
     "nanoid": "^4.0.0",

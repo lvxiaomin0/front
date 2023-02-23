@@ -10,7 +10,7 @@
         </b-navbar-item>
       </template>
       <template slot="start" >
-        <b-navbar-item href="#" >她在天空看过多少次遗忘~</b-navbar-item>
+        <b-navbar-item href="#" >{{nowTime}}</b-navbar-item>
       </template>
     </b-navbar>
     <div class="Wrapper">
@@ -67,7 +67,7 @@
                       </a>
                     </td>
                     <td width="33%" align="center">
-                      <a href="" class="dark" style="display: block;">
+                      <a href="#" class="dark" style="display: block;">
                         <span class="bigger">{{$store.state.user.userConcern}}</span>
                         <div class="sep3"></div>
                         <span class="fade">你关注的人数</span>
@@ -87,17 +87,16 @@
                 <tbody>
                   <tr>
                     <td width="28">
-                      <a href="">
+                      <a href="#">
                         <img src width="28" border="0" />
                       </a>
                     </td>
                     <td width="10"></td>
-                    <td width="auto" valign="middle" align="left" >
+                    <td width="auto" valign="middle" align="left" v-if="info.map.user">
                       <!-- <a >这是点赞</a>
                       &nbsp;
                       <a >这是收藏</a> -->
-                      <Nice></Nice>
-                      
+                      <Nice :userData="this.info.map.user.userId"></Nice>
                       
                     </td>
                   </tr>
@@ -243,7 +242,7 @@
 <script>
 import axios from 'axios';
 import Login from "../login/Login.vue"
-import Nice from "../view/nice.vue"
+import Nice from "./nice.vue"
 export default {
   components: {
     Login,
@@ -251,6 +250,7 @@ export default {
   },
   data() {
     return {
+      nowTime:'',
       myartnum: 0,
       reply_content: "",
       info: [
@@ -318,6 +318,7 @@ export default {
   mounted(){
     this.info = JSON.parse(this.$route.query.detaildata);
     this.GetComments();
+    this.nowTimes();
   },
   methods:{
     Post() {
@@ -333,7 +334,7 @@ export default {
     SetComments(){
       axios.post("http://localhost:8081/comments/set-comments",{
         comArtId: this.info.artId,
-        comUserId: this.info.artUserId,
+        comUserId: this.$store.state.user.userId,
         comContent: this.reply_content,
       }).then((response)=>{
         if(response.data.code === 200){
@@ -342,7 +343,43 @@ export default {
         
       })
 
-    }
+    },
+    //右上角时间
+    timeFormate(timeStamp) {
+      let year = new Date(timeStamp).getFullYear();
+      let month =new Date(timeStamp).getMonth() + 1 < 10? "0" + (new Date(timeStamp).getMonth() + 1): new Date(timeStamp).getMonth() + 1;
+      let date =new Date(timeStamp).getDate() < 10? "0" + new Date(timeStamp).getDate(): new Date(timeStamp).getDate();
+      let hh =new Date(timeStamp).getHours() < 10? "0" + new Date(timeStamp).getHours(): new Date(timeStamp).getHours();
+      let mm =new Date(timeStamp).getMinutes() < 10? "0" + new Date(timeStamp).getMinutes(): new Date(timeStamp).getMinutes();
+      let ss =new Date(timeStamp).getSeconds() < 10? "0" + new Date(timeStamp).getSeconds(): new Date(timeStamp).getSeconds();
+      var d = new Date(timeStamp).getDay();
+      let day;
+      if (d == 0) {
+        day = "日";
+      } else if (d == 1) {
+        day = "一";
+      } else if (d == 2) {
+        day = "二";
+      } else if (d == 3) {
+        day = "三";
+      } else if (d == 4) {
+        day = "四";
+      } else if (d == 5) {
+        day = "五";
+      } else if (d == 6) {
+        day = "六";
+      }
+      this.nowTime = hh+":"+mm+':'+ss+"   "+year + "/" + month + "/" + date+"   "+ "星期"+day;
+    },
+    nowTimes(){
+      this.timeFormate(new Date());
+      setInterval(this.nowTimes,1000);
+      this.clear()
+    },
+    clear(){
+      clearInterval(this.nowTimes)
+      this.nowTimes = null;
+    },
   }
 
  
@@ -350,6 +387,10 @@ export default {
 </script>
 
 <style scoped>
+@import "../../assets/font.css";
+ body{
+  font-family: alimama;
+ }
 @import url("//at.alicdn.com/t/c/font_3724495_47d4vtspf88.css");
 .icon {
        width: 1em; height: 1em;
