@@ -253,6 +253,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../assets/font.css";
+body {
+  font-family: alimama;
+}
 .b-tooltips {
   .b-tooltip:not(:last-child) {
     margin-right: 0.5em;

@@ -13,6 +13,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+@import "assets/font.css";
 
+ #app{
+  font-family: alimama;
+ }
 </style>

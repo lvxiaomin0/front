@@ -95,7 +95,11 @@
                   <button
                     class="button is-info is-outlined"
                     
-                  >{{ArticleType.typeName}}</button>
+                  >{{"求助帖"}}</button>
+                  <button
+                    class="button is-info is-outlined"
+                    
+                  >{{"寻物帖"}}</button>
                 </b-tooltip>
               </section>
               <br />

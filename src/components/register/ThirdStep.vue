@@ -44,7 +44,7 @@ export default {
   methods: {
     register() {
         axios
-          .post("http://localhost:8081/user/register",
+          .post("/user/register",
           {  
               userName: this.userName,
               userPassword: this.userPassword,
@@ -61,13 +61,8 @@ export default {
               message: '恭喜注册成功',
               type: 'is-warning',
               position: 'is-top',
-              indefinite: false,
-              onAction: () => {
-                  // this.$buefy.toast.open({
-                  //     message: 'Action pressed',
-                  //     queue: false
-                  // })
-        }
+              indefinite: true,
+          
     })
             this.$router.go(-1);
           }

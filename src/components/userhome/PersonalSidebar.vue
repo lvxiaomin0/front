@@ -8,7 +8,7 @@
             >
           </div>
           <el-menu
-            router=""
+            :router="true"
             active-text-color="#00c3ff"
             class="el-menu-vertical-demo"
             
@@ -37,38 +37,55 @@
         </el-card>
       </div>
       <div class="person_body_right">
-        <router-view></router-view>
+        <router-view ></router-view>
       </div>
     </div>
 </template>
 
 <script>
+
+import { getCurrentInstance } from 'vue';
 export default {
   name: "PersonalSidebar",
   data() {
-    return {};
+    return {
+       
+    };
   },
+  created(){
+    const { proxy } = getCurrentInstance();
+    this.pathJuage = proxy.$router.currentRoute.fullPath;
+    // console.log("测试"+JSON.parse(window.localStorage.getItem("user")).userName);
+    
+    //获取当前所在路由
+    // console.log(proxy.$router.currentRoute.fullPath);
+    
+  },
+ 
   methods: {
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleSelect(key, keyPath) {
-      console.log(keyPath);
-      switch (key) {
-        case "personalinfo":
-          this.$router.push("/personalinfo");
-          break;
-        case "MyFanAndFollow":
-          this.$router.push("/articlemanger");
-          break;
-        case "3":
-          this.$router.push("/typemanger");
-          break;
-      }
-    },
+    //暂时弃用
+    // handleOpen(key, keyPath) {
+    //   console.log(key, keyPath);
+      
+    // },
+    // handleClose(key, keyPath) {
+    //   console.log(key, keyPath);
+    // },
+    // handleSelect(key, keyPath) {
+    //   console.log(keyPath);
+    //   switch (key) {
+    //     case "personalinfo":
+    //       this.$router.push("/personalinfo");
+    //       break;
+    //     case "MyFanAndFollow":
+    //       this.$router.push("/articlemanger");
+    //       break;
+    //     case "3":
+    //       this.$router.push("/typemanger");
+    //       break;
+    //   }
+    // },
+
   },
 };
 </script>
@@ -124,7 +141,7 @@ export default {
 
 .person_body_right {
   width: 70%;
-  /* height: 500px; */
+  height: 500px;
   border-radius: 5px;
   background-color: white;
 }

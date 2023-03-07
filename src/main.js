@@ -13,6 +13,7 @@ import store from './store'
 import HappyScroll from 'vue-happy-scroll'
 // 引入css
 import 'vue-happy-scroll/docs/happy-scroll.css'
+import * as Api from './api/index.js'
 
 
 //自定义组件名
@@ -25,6 +26,7 @@ Vue.use(ElementUI)
 Vue.use(VueRouter)
 Vue.use(HappyScroll)
 Vue.prototype.axios = axios
+
 
 new Vue({
   render: h => h(App),

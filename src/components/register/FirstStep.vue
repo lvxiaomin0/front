@@ -73,7 +73,7 @@ export default {
     },
     To_judge_username(){
       axios
-        .post("http://localhost:8081/user/get-user", {
+        .post("/user/get-user", {
           userEmail: this.userEmail
           
         })

@@ -9,15 +9,15 @@
           />
         </b-navbar-item>
       </template>
-      <template slot="start" >
-        <b-navbar-item href="#" >{{nowTime}}</b-navbar-item>
+      <template slot="start">
+        <b-navbar-item href="#">{{ nowTime }}</b-navbar-item>
       </template>
     </b-navbar>
     <div class="Wrapper">
       <div class="content">
         <div class="Leftbar"></div>
 
-        <div  class="Rightbar" v-if="$store.state.loginStates">
+        <div class="Rightbar" v-if="$store.state.loginStates">
           <div class="sep20"></div>
           <div class="box">
             <div class="cell">
@@ -31,14 +31,14 @@
                           class="avatar"
                           border="0"
                           align="default"
-                          style="max-width: 48px; max-height: 48px;"
+                          style="max-width: 48px; max-height: 48px"
                         />
                       </a>
                     </td>
                     <td width="10" valign="top"></td>
                     <td width="auto" align="left">
                       <span class="bigger">
-                        <a href="#">{{$store.state.user.userName}}</a>
+                        <a href="#">{{ $store.state.user.userName }}</a>
                       </span>
                     </td>
                   </tr>
@@ -49,26 +49,33 @@
                 <tbody>
                   <tr>
                     <td width="33%" align="center">
-                      <a href="#" class="dark" style="display: block;">
-                        <span class="bigger">{{$store.state.user.userFans}}</span>
+                      <a href="#" class="dark" style="display: block">
+                        <span class="bigger">{{
+                          $store.state.user.userFans
+                        }}</span>
                         <div class="sep3"></div>
                         <span class="fade">粉丝数</span>
                       </a>
                     </td>
                     <td
                       width="34%"
-                      style="border-left: 1px solid rgba(100, 100, 100, 0.4); border-right: 1px solid rgba(100, 100, 100, 0.4);"
+                      style="
+                        border-left: 1px solid rgba(100, 100, 100, 0.4);
+                        border-right: 1px solid rgba(100, 100, 100, 0.4);
+                      "
                       align="center"
                     >
-                      <a href="#" class="dark" style="display: block;">
-                        <span class="bigger">{{1}}</span>
+                      <a href="#" class="dark" style="display: block">
+                        <span class="bigger">{{ 1 }}</span>
                         <div class="sep3"></div>
                         <span class="fade">你的帖子</span>
                       </a>
                     </td>
                     <td width="33%" align="center">
-                      <a href="#" class="dark" style="display: block;">
-                        <span class="bigger">{{$store.state.user.userConcern}}</span>
+                      <a href="#" class="dark" style="display: block">
+                        <span class="bigger">{{
+                          $store.state.user.userConcern
+                        }}</span>
                         <div class="sep3"></div>
                         <span class="fade">你关注的人数</span>
                       </a>
@@ -79,10 +86,10 @@
             </div>
             <div class="cell" id="member-activity">
               <div class="member-activity-bar">
-                <div class="member-activity-start" style="width: 15px;"></div>
+                <div class="member-activity-start" style="width: 15px"></div>
               </div>
             </div>
-            <div class="cell" style="padding: 5px;">
+            <div class="cell" style="padding: 5px">
               <table cellpadding="0" cellspacing="0" border="0" width="100%">
                 <tbody>
                   <tr>
@@ -92,12 +99,16 @@
                       </a>
                     </td>
                     <td width="10"></td>
-                    <td width="auto" valign="middle" align="left" v-if="info.map.user">
+                    <td
+                      width="auto"
+                      valign="middle"
+                      align="left"
+                      v-if="info.map.user"
+                    >
                       <!-- <a >这是点赞</a>
                       &nbsp;
                       <a >这是收藏</a> -->
                       <Nice :userData="this.info.map.user.userId"></Nice>
-                      
                     </td>
                   </tr>
                 </tbody>
@@ -105,7 +116,7 @@
             </div>
             <div class="inner">
               <div class="fr" id="money" style="margin: -3px 0px 0px 0px"></div>
-              <a class="fade" @click="Post()" >去发帖</a>
+              <a class="fade" @click="Post()">去发帖</a>
             </div>
           </div>
         </div>
@@ -122,7 +133,8 @@
               <div align="center">
                 <a href="" class="super normal button">现在注册</a>
                 <div class="sep5"></div>
-                <div class="sep10"></div>已注册用户请 &nbsp;
+                <div class="sep10"></div>
+                已注册用户请 &nbsp;
                 <a href="login">登录</a>
               </div>
             </div>
@@ -131,30 +143,32 @@
         </div>
         <div class="Main">
           <div class="sep20"></div>
-          <div class="box" style="border-bottom:0px;">
+          <div class="box" style="border-bottom: 0px">
             <div class="header">
               <div class="fr" v-if="info">
                 <!-- <img :src="require(`../../assets/${info.user}`)" class="size" /> -->
-                <img :src="info.artImage" class="size" alt="">
+                <img :src="info.artImage" class="size" alt="" />
               </div>
               <div class="sep10"></div>
-              <h1>{{info.artTitle}}</h1>
+              <h1>{{ info.artTitle }}</h1>
 
-              <small class="gray" v-if="info.map.user">{{info.map.user.userName}}</small>
+              <small class="gray" v-if="info.map.user">{{
+                info.map.user.userName
+              }}</small>
             </div>
-            <div class="cell">{{info.artContent}}</div>
+            <div class="cell">{{ info.artContent }}</div>
           </div>
 
           <div class="sep20"></div>
           <div class="box">
             <div class="cell">回复</div>
             <div class="fuck"></div>
-            <div class="cell" v-for="(index,item) in comments" :key="item">
+            <div class="cell" v-for="(index, item) in comments" :key="item">
               <table cellpadding="0" cellspacing="0" border="0" width="100%">
                 <tbody v-if="index.map">
                   <tr>
-                    <td width="48" valign="top" align="center" >
-                      <img :src="index.map.user.userImg" class="size" alt="">
+                    <td width="48" valign="top" align="center">
+                      <img :src="index.map.user.userImg" class="size" alt="" />
                     </td>
                     <td width="10" valign="top"></td>
                     <td width="auto" valign="top" align="left">
@@ -164,11 +178,13 @@
                       </div>
                       <div class="sep3"></div>
                       <strong>
-                        <a class="dark">{{index.map.user.userName}}</a>
-                      </strong>&nbsp; &nbsp;
-                      <span class="ago">{{index.comTime}}</span>
+                        <a class="dark">{{
+                          index.map.user.userName
+                        }}</a> </strong
+                      >&nbsp; &nbsp;
+                      <span class="ago">{{ index.comTime }}</span>
                       <div class="sep5"></div>
-                      <div class="reply_content">{{index.comContent}}</div>
+                      <div class="reply_content">{{ index.comContent }}</div>
                     </td>
                   </tr>
                 </tbody>
@@ -176,13 +192,12 @@
             </div>
           </div>
           <div class="sep20"></div>
-          <div class="box" >
+          <div class="box">
             <div class="cell">
               <div class="fr">
-                <a>
-                  <strong>↑</strong> 注意用语规范
-                </a>
-              </div>添加一条新回复
+                <a> <strong>↑</strong> 注意用语规范 </a>
+              </div>
+              添加一条新回复
             </div>
             <div class="cell">
               <form>
@@ -192,7 +207,13 @@
                   maxlength="10000"
                   class="mll"
                   id="reply_content"
-                  style="overflow: auto; word-break: break-all; resize: none; height: 112px;width: 100%;"
+                  style="
+                    overflow: auto;
+                    word-break: break-all;
+                    resize: none;
+                    height: 112px;
+                    width: 100%;
+                  "
                 ></textarea>
                 <div class="sep10"></div>
                 <div class="fr">
@@ -200,13 +221,19 @@
                   <span class="gray">请尽量让自己的回复能够对别人有帮助</span>
                 </div>
                 <input type="hidden" value="41475" name="once" />
-                <input type="button" value="回复" class="super normal button" @click="SetComments()" />
+                <input
+                  type="button"
+                  value="回复"
+                  class="super normal button"
+                  @click="SetComments()"
+                />
               </form>
             </div>
             <div class="inner">
               <div class="fr">
                 <a href="#">← Top</a>
-              </div>&nbsp;
+              </div>
+              &nbsp;
             </div>
           </div>
         </div>
@@ -232,7 +259,8 @@
             <span class="snow">·</span> &nbsp;
             <a href="" class="dark" target="_self">实用小工具</a>
           </strong>
-          <div class="sep20"></div>创意工作者们的社区
+          <div class="sep20"></div>
+          创意工作者们的社区
         </div>
       </div>
     </div>
@@ -240,17 +268,17 @@
 </template>
 
 <script>
-import axios from 'axios';
-import Login from "../login/Login.vue"
-import Nice from "./nice.vue"
+import axios from "axios";
+import Login from "../login/Login.vue";
+import Nice from "./nice.vue";
 export default {
   components: {
     Login,
-    Nice
+    Nice,
   },
   data() {
     return {
-      nowTime:'',
+      nowTime: "",
       myartnum: 0,
       reply_content: "",
       info: [
@@ -267,7 +295,7 @@ export default {
             artComNum: 0,
             artHotNum: 0,
             artLikeNum: 0,
-            artImage: ""
+            artImage: "",
           },
           user: {
             userId: 0,
@@ -282,9 +310,9 @@ export default {
             userBlog: "",
             userImg: "",
             userFans: 0,
-            userConcern: 0
-          }
-        }
+            userConcern: 0,
+          },
+        },
       ],
       comments: [
         {
@@ -293,7 +321,7 @@ export default {
             comArtId: 0,
             comContent: "",
             comTime: "",
-            comUserId: ""
+            comUserId: "",
           },
 
           user: {
@@ -309,49 +337,75 @@ export default {
             userBlog: "",
             userImg: "",
             userFans: 0,
-            userConcern: 0
-          }
-        }
-      ]
+            userConcern: 0,
+          },
+        },
+      ],
     };
   },
-  mounted(){
+  /**
+   * 沟子
+   */
+  mounted() {
     this.info = JSON.parse(this.$route.query.detaildata);
     this.GetComments();
     this.nowTimes();
   },
-  methods:{
+  methods: {
     Post() {
       this.$router.push("/postarticle");
     },
-    GetComments(){
-       axios.get("http://localhost:8081/comments/get-comments?artId="+this.info.artId,{
-      }).then((response)=>{
-        this.comments = response.data.data;
-      })
-
+    /**
+     * 获取评论
+     */
+    GetComments() {
+      axios
+        .get("/comments/get-comments?artId=" + this.info.artId, {})
+        .then((response) => {
+          this.comments = response.data.data;
+        });
     },
-    SetComments(){
-      axios.post("http://localhost:8081/comments/set-comments",{
-        comArtId: this.info.artId,
-        comUserId: this.$store.state.user.userId,
-        comContent: this.reply_content,
-      }).then((response)=>{
-        if(response.data.code === 200){
-          location.reload();
-        }
-        
-      })
-
+    /**
+     * 评论写入
+     */
+    SetComments() {
+      axios
+        .post("/comments/set-comments", {
+          comArtId: this.info.artId,
+          comUserId: this.$store.state.user.userId,
+          comContent: this.reply_content,
+        })
+        .then((response) => {
+          if (response.data.code === 200) {
+            
+            this.GetComments();
+          }
+        });
+      this.reply_content = "";
     },
     //右上角时间
     timeFormate(timeStamp) {
       let year = new Date(timeStamp).getFullYear();
-      let month =new Date(timeStamp).getMonth() + 1 < 10? "0" + (new Date(timeStamp).getMonth() + 1): new Date(timeStamp).getMonth() + 1;
-      let date =new Date(timeStamp).getDate() < 10? "0" + new Date(timeStamp).getDate(): new Date(timeStamp).getDate();
-      let hh =new Date(timeStamp).getHours() < 10? "0" + new Date(timeStamp).getHours(): new Date(timeStamp).getHours();
-      let mm =new Date(timeStamp).getMinutes() < 10? "0" + new Date(timeStamp).getMinutes(): new Date(timeStamp).getMinutes();
-      let ss =new Date(timeStamp).getSeconds() < 10? "0" + new Date(timeStamp).getSeconds(): new Date(timeStamp).getSeconds();
+      let month =
+        new Date(timeStamp).getMonth() + 1 < 10
+          ? "0" + (new Date(timeStamp).getMonth() + 1)
+          : new Date(timeStamp).getMonth() + 1;
+      let date =
+        new Date(timeStamp).getDate() < 10
+          ? "0" + new Date(timeStamp).getDate()
+          : new Date(timeStamp).getDate();
+      let hh =
+        new Date(timeStamp).getHours() < 10
+          ? "0" + new Date(timeStamp).getHours()
+          : new Date(timeStamp).getHours();
+      let mm =
+        new Date(timeStamp).getMinutes() < 10
+          ? "0" + new Date(timeStamp).getMinutes()
+          : new Date(timeStamp).getMinutes();
+      let ss =
+        new Date(timeStamp).getSeconds() < 10
+          ? "0" + new Date(timeStamp).getSeconds()
+          : new Date(timeStamp).getSeconds();
       var d = new Date(timeStamp).getDay();
       let day;
       if (d == 0) {
@@ -369,35 +423,48 @@ export default {
       } else if (d == 6) {
         day = "六";
       }
-      this.nowTime = hh+":"+mm+':'+ss+"   "+year + "/" + month + "/" + date+"   "+ "星期"+day;
+      this.nowTime =
+        hh +
+        ":" +
+        mm +
+        ":" +
+        ss +
+        "   " +
+        year +
+        "/" +
+        month +
+        "/" +
+        date +
+        "   " +
+        "星期" +
+        day;
     },
-    nowTimes(){
+    nowTimes() {
       this.timeFormate(new Date());
-      setInterval(this.nowTimes,1000);
-      this.clear()
+      setInterval(this.nowTimes, 1000);
+      this.clear();
     },
-    clear(){
-      clearInterval(this.nowTimes)
+    clear() {
+      clearInterval(this.nowTimes);
       this.nowTimes = null;
     },
-  }
-
- 
+  },
 };
 </script>
 
 <style scoped>
 @import "../../assets/font.css";
- body{
+body {
   font-family: alimama;
- }
+}
 @import url("//at.alicdn.com/t/c/font_3724495_47d4vtspf88.css");
 .icon {
-       width: 1em; height: 1em;
-       vertical-align: -0.15em;
-       fill: currentColor;
-       overflow: hidden;
-    }
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
 textarea {
   -webkit-writing-mode: horizontal-tb !important;
   text-rendering: auto;

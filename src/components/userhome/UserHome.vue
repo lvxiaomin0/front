@@ -3,7 +3,7 @@
     <Header></Header>
     <Personal></Personal>
     <PersonalSidebar></PersonalSidebar>
-    
+
   </div>
 </template>
 

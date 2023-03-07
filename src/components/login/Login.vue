@@ -4,7 +4,7 @@
     <div class="column is-one-quarter box" id="login_position">
       <h5 class="subtitle title is-4">欢迎登录</h5>
       <section>
-        <b-field label="Email" type="is-danger" :message="this.judge_username_message">
+        <b-field label="UserEmail" type="is-danger" :message="this.judge_username_message">
           <b-input
             placeholder="Email"
             type="email"
@@ -15,7 +15,7 @@
         </b-field>
 
         <b-field
-          label="Password"
+          label="UserPassword"
           type="is-warning">
           <b-input
             password-reveal
@@ -24,16 +24,20 @@
             maxlength="30"
             v-model="userPassword"
           ></b-input>
+          
+          
         </b-field>
-
+        <!-- style="float: left" -->
         <button
           class="button is-primary is-outlined"
-          style="float: left"
+          
           v-show="login_show"
           @click="Tologin"
         >
           登录
         </button>
+        <!-- &nbsp; -->
+        <a @click="updatePwd()">忘记密码</a>
 
         <button
           class="button is-danger is-outlined is-normal"
@@ -42,7 +46,9 @@
         >
           {{ registerTitle }}
         </button>
+        
       </section>
+      
     </div>
   </div>
 </template>
@@ -91,20 +97,20 @@ export default {
     },
 
     //注册
-    Toregister() {
+     Toregister() {
       this.$router.push("registerhome");
     },
     //登录
     Tologin() {
-      axios
-        .post("http://localhost:8081/user/login", {
+        axios.post("/user/login", {
           userEmail: this.userEmail,
           userPassword: this.userPassword,
         })
         .then((response) => {
           console.log(response.data);
           const data = response.data;
-          if(data.code===500){
+          //明天修改
+          if(data.code===503){
             this.progress(data.msg);
           }
           else if(data.code===200){
@@ -120,6 +126,10 @@ export default {
         })
         
     },
+    //忘记密码
+    updatePwd(){
+      console.log("忘记密码被触发");
+    }
   },
 };
 </script>

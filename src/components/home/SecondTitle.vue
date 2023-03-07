@@ -118,8 +118,8 @@
           <p class="title">友情链接</p>
           <div class="control">
             <div class="tags has-addons">
-              <a class="tag is-dark" href="https://www.github.com">GitHub</a>
-              <a class="tag is-primary">1.0.53</a>
+              <a class="tag is-dark" href="https://cn.dubbo.apache.org/zh-cn/">Dubbo</a>
+              <a class="tag is-primary">3.1.5</a>
             </div>
           </div>
         </article>
@@ -153,74 +153,9 @@
       
 
         <div class="fucks content">
-        <happy-scroll  size="2" left  color="rgba(75,0,130,0.2)">
-          <section>
-          <div class="card box item-boder" v-for="(user, k) in users" :key="k">
-            <div class="card-content">
-              <div class="media">
-                <div class="media-left">
-
-                    <figure class="image is-48x48">
-                    <img
-                      :src="$store.state.user.userImg"
-                      class="size"
-                      alt=""
-                    />
-                  </figure>
-                </div>
-                <div class="media-content">
-                  <p class="title is-5">
-                    <i class="fas">Ming</i>
-                  </p>
-                </div>
-              </div>
-              
-              <div class="content">
-                <p>
-                  -帮忙找一下，路边丢失的Mac Book Pro 16寸 1TB 32G
-                  -- 有线索请联系俺 754946573
-                </p>
-                <i class="far fa-hand-point-right">个人主页</i>
-                <br />粉丝数：
-                <i class="fab fa-gratipay">{{ user.userFans }}</i>
-                <br />
-              </div>
-            </div>
-          </div>
-
-          <!-- <div class="card box item-boder" v-for="(user, k) in users" :key="k">
-            <div class="card-content">
-              <div class="media">
-                <div class="media-left">
-                  <figure class="image is-48x48">
-                    <img
-                      :src="$store.state.user.userImg"
-                      class="size"
-                      alt=""
-                    />
-                  </figure>
-                </div>
-                <div class="media-content">
-                  <p class="title is-4">
-                    <i class="fas fa-female">Ming</i>
-                  </p>
-                </div>
-              </div>
-              
-              <div class="content">
-                <p>
-                  格言：世界既不黑也不白,而是一道精致的灰————《青钢影·卡蜜尔》
-                </p>
-                <i class="far fa-hand-point-right">个人主页</i>
-                <br />粉丝数：
-                <i class="fab fa-gratipay">{{ user.userFans }}</i>
-                <br />
-              </div>
-            </div>
-          </div> -->
-          
-         
-          </section>
+          <happy-scroll  size="2" left  color="rgba(75,0,130,0.2)">
+            <Findsome></Findsome>
+            
         </happy-scroll>
           
           
@@ -235,7 +170,11 @@
 
 <script>
 import axios from 'axios';
+import Findsome from '@/components/view/Findsome.vue'
 export default {
+  components:{
+    Findsome
+  },
   data() {
     return {
       users: [
@@ -307,7 +246,7 @@ export default {
     //获取文章
     getArticle(){
       axios.get(
-        "http://localhost:8081/service/get-article"
+        "/service/get-article"
       )
       .then((response)=>{
         this.info = response.data.data;

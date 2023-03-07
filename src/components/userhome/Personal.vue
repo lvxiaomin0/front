@@ -31,7 +31,7 @@
             :visible.sync="dialogFormVisible"
             :modal="false"
             :append-to-body="true"
-             width="60%"
+             width="40%"
              close-on-click-modal
             :before-close="handleClose()"
           >
@@ -39,38 +39,39 @@
               :model="form"
               :rules="rules"
               ref="form"
-              label-width="160px"
+              :label-width="formLabelWidth"
             >
               <div class="updateinfo">
-                <div class="left">
+                <div class="left" >
                   <el-form-item label="头像" prop="avatar">
                     <!-- <img
                       style="width: 150px; height: 110px"
-                      :src="form.avatar"
+                      :src="imageUrl"
                     /> -->
                     <el-upload
                       class="avatar-uploader"
-                      action="null"
+                      action=""
                       :show-file-list="false"
-                      :auto-upload ="false"
+                      :auto-upload ="true"
+                      :http-request="handlerUpload"
+                      
                     >
                       <img v-if="imageUrl" :src="form.avatar" class="avatar" />
                       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                     </el-upload>
+
                   </el-form-item>
-                  <el-form-item label="账号密码" prop="password">
+                  <el-form-item label="账号密码" prop="password" >
                     <el-input v-model="form.password"></el-input>
                   </el-form-item>
                   <el-form-item label="昵称" prop="nickname">
                     <el-input v-model="form.nickname"></el-input>
                   </el-form-item>
-                  <el-form-item label="年龄" prop="age">
-                    <el-input v-model="form.age"></el-input>
-                  </el-form-item>
+                 
                   <el-form-item label="性别" prop="sex">
                     <el-switch
                       v-model="form.sex"
-                      active-color="#13ce66"
+                      active-color="#66b1ff"
                       inactive-color="#ff4949"
                       active-text="女"
                       inactive-text="男"
@@ -79,12 +80,13 @@
                     >
                     </el-switch>
                   </el-form-item>
+                  
+                </div>
+                <div class="right" >
                   <el-form-item label="邮箱" prop="email">
                     <el-input v-model="$store.state.user.userEmail" disabled></el-input>
                   </el-form-item>
-                </div>
-                <div class="right">
-                  <el-form-item label="院系" prop="area">
+                  <el-form-item label="院系" prop="area" :label-width="formLabelWidth">
                     <el-input v-model="form.area"></el-input>
                   </el-form-item>
                   <el-form-item label="兴趣爱好" prop="hobby">
@@ -127,6 +129,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import PersonalEdit from "./PersonalEdit.vue";
 export default {
   name: "Personal",
@@ -135,7 +138,7 @@ export default {
   },
   data() {
     return {
-      
+      formLabelWidth: '30px',
       dialogFormVisible: false,
       imageUrl:"",
       form: {
@@ -160,18 +163,38 @@ export default {
     };
   },
   methods: {
+    //修改用户头像
+    handlerUpload(data){
+      this.form.avatar = data.file;
+      console.log(data);
+      console.log(this.form.avatar);
+       
+    },
+    
     myfan() {},
     myfollow() {},
     edit() {
       // this.$router.push("/personaledit");
     },
+    
     handleClose() {
         this.dialogVisible = false;
     },
     //更新个人信息
     updatePersonalInfo(){
-      const formData = new FormData();
-      formData.append("",this.form)
+      var formData = new FormData();
+      formData.append("avatar",this.form.avatar);
+      formData.append("userName",this.form.nickname);
+      formData.append("userPassword",this.form.password);
+      formData.append("userShow",this.form.design);
+      formData.append("userPhone",this.form.mobilePhoneNumber);
+      formData.append("userBlog",this.form.hobby);
+      axios.post("/user/update-user",{
+        formData: formData
+      }).then((response)=>{
+          
+          console.log(response.data);
+      })
     },
   },
 };
@@ -187,11 +210,13 @@ body {
   overflow: auto;
 }
 .left {
-  /* width: 330px; */
+  width: 330px;
   float: left;
 }
 .right {
+  width: 330px;
   overflow: hidden;
+  /* float: right; */
 }
 .me-video-player {
   background-color: transparent;

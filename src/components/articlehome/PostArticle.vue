@@ -9,7 +9,7 @@
                 <td width="110" align="left">
                   <a href="/" name="top" title="way to explore">
                     <div id="Logo">
-                     <p></p>
+                     <!-- <p></p> -->
                     </div>
                   </a>
                 </td>
@@ -85,7 +85,7 @@
           <div class="sep20"></div>
           <div class="box" id="box">
             <div class="cell">
-              <a href="/">{{ this.$store.state.user.userName }}</a>
+              <a href="/">{{ userName }}</a>
               <span class="chevron">&nbsp;›&nbsp;</span> 发表新帖
             </div>
             <form method="post" action="/new" id="compose">
@@ -307,6 +307,7 @@ export default {
   },
   data() {
     return {
+      userName:"",
       nowTime:'',
       objectArticle: {
         select: "",
@@ -330,6 +331,7 @@ export default {
     }
   },
   mounted() {
+    this.userName = JSON.parse(window.localStorage.getItem("user")).userName;
     this.nowTimes();
     this.objectArticle.userId = this.$store.state.user.userId;
   },
@@ -363,7 +365,7 @@ export default {
         formData.append("file", this.imagesList[index]);
       }
       axios({
-        url: "http://localhost:8081/service/add-article",
+        url: "/service/add-article",
         data: formData,
         method: "post",
         headers: {

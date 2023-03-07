@@ -11,7 +11,7 @@
       <el-form-item label="头像" prop="avatar">
             <img style="width:150px;height:110px" :src="form.avatar">
           </el-form-item>
-                    <el-form-item label="账号密码" prop="password">
+          <el-form-item label="账号密码" prop="password">
             <el-input v-model="form.password"></el-input>
           </el-form-item>
           <el-form-item label="昵称" prop="nickname">

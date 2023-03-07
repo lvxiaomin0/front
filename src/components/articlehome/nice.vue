@@ -44,7 +44,7 @@ export default {
     methods:{
         //关注
         likeAction(){
-            axios.post("http://localhost:8081/attention/set-attention",{
+            axios.post("/attention/set-attention",{
                 attAuthorId: this.userData,
                 attUserId: this.userId,
                 whetherAtt: this.whetherAtt
