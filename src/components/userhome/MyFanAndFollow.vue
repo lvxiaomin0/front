@@ -23,8 +23,8 @@
           size="small"
           round
           icon="el-icon-check"
-          v-text="isfollowid.indexOf(item.id) > -1 ? '已关注' : '关注'"
-        ></el-button>
+          v-if="isfollowid.indexOf(item.id) > -1 ? '已关注' : '关注'">
+          </el-button>
       </div>
     </div>
     <div>
@@ -42,7 +42,6 @@
 
 export default {
   name: "MyFanAndFollow",
-  inject: ["reload"],
   data() {
     return {
       allData: [],
@@ -86,7 +85,7 @@ export default {
     },
   },
   mounted() {
-    this.load();
+    
   },
   methods: {
     load() {

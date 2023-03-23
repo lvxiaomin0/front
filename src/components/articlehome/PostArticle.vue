@@ -333,7 +333,7 @@ export default {
   mounted() {
     this.userName = JSON.parse(window.localStorage.getItem("user")).userName;
     this.nowTimes();
-    this.objectArticle.userId = this.$store.state.user.userId;
+    this.objectArticle.userId =JSON.parse(window.localStorage.getItem("user")).userId;
   },
 
   methods: {

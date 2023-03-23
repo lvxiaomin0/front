@@ -49,7 +49,7 @@
           position="is-bottom"
           :animated="false"
         >
-          <b-button label="求助帖" @click="help()" />
+          <b-button label="留个言吧" @click="help()" />
         </b-tooltip>
 
         <b-tooltip
@@ -281,9 +281,11 @@ body {
 //   height: 64px;
 // }
 #back_image {
-  background-image: url("../../assets/banner_two.png");
+  z-index: 1;
+  background-image: url("../../assets/backTiles.png");
   background-repeat: no-repeat;
-  // background-position-x: 10px;
+  background-position-y: 25%;
+  // background-position-x: 3px;
   // background-size: contain;
 }
 #opacity_item {

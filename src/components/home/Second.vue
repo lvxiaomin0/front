@@ -1,6 +1,7 @@
 <template>
-  <section class="hero is-white" id="back_image" >
-      <Top></Top>
+  <section class="hero is-white is-halfheight" id="back_image" ref="vantaRef">
+    <Top></Top>
+    <!-- <div ref="vantaRef" class="vantaRef"></div> -->
     <div class="hero-body">
       <div class="container">
         <h1 class="title is-2">XX论坛</h1>
@@ -17,24 +18,57 @@
                 <a href="#" class="content is-medium">谨慎</a>
               </li>
               <li>
-                <a href="#" aria-current="page" class="content is-medium">创新</a>
+                <a href="#" aria-current="page" class="content is-medium"
+                  >创新</a
+                >
               </li>
             </ul>
           </nav>
         </h2>
       </div>
     </div>
-    <progress class="progress is-whrite is-small" value="1%" max="30">40%</progress>
+    <!-- <progress class="progress is-whrite is-small" value="1%" max="20">
+      40%
+    </progress> -->
   </section>
   
 </template>
 <script>
+import Clouds from "@/utils/vanta_cloud"
+
+import * as THREE from "three";
+
+// import Clouds from "vanta/src/vanta.clouds";
+
+
 import Top from "./Top.vue";
 export default {
   components: {
     Top,
-    
+  },
+  data() {
+    return {};
+  },
+  mounted() {
+    this.vantaEffect = Clouds({
+      el: this.$refs.vantaRef,
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      cloudColor: 0x3769af,
+      sunGlareColor: 0xbe978c,
+      sunlightColor: 0x8e8d8c,
+      THREE: THREE,
+    });
+  },
+  beforeDestroy() {
+    if (this.vantaEffect) {
+      this.vantaEffect.destroy();
     }
+  },
+  methods: {},
 };
 </script>
 
@@ -46,11 +80,11 @@ export default {
   text-align: right;
 }
 
-#back_image{
-    z-index: -1;
-    background-image: url("../../assets/banner_one.png");
-    background-repeat: no-repeat;
-   
-    /* background-image: url("https://www.toptal.com/designers/subtlepatterns/uploads/memphis-colorful.png"); */
+#back_image {
+  /* z-index: -1; 
+  background-image: url("../../assets/banner_one.png"); 
+  background-repeat: no-repeat; */
+
+  /* background-image: url("https://www.toptal.com/designers/subtlepatterns/uploads/memphis-colorful.png"); */
 }
 </style>

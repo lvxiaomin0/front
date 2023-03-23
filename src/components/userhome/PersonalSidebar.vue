@@ -17,19 +17,19 @@
               <i class="el-icon-user"></i>
               <span slot="title">个人简介</span>
             </el-menu-item>
-            <el-menu-item index="MyFanAndFollow">
+            <!-- <el-menu-item index="MyFanAndFollow">
               <i class="el-icon-edit-outline"></i>
               <span slot="title">发帖</span>
             </el-menu-item>
             <el-menu-item index="MyFanAndFollow">
               <i class="el-icon-document"></i>
               <span slot="title">收藏</span>
-            </el-menu-item>
+            </el-menu-item> -->
             <el-menu-item index="MyFanAndFollow">
               <i class="el-icon-tableware"></i>
               <span slot="title">粉丝</span>
             </el-menu-item>
-            <el-menu-item index="MyFanAndFollow">
+            <el-menu-item index="">
               <i class="el-icon-circle-plus-outline"></i>
               <span slot="title">关注</span>
             </el-menu-item>

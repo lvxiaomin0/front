@@ -23,8 +23,9 @@
         ></b-input>
       </b-field>
     </section>
-    <b-button type="is-info" outlined rounded @click="first">保存</b-button>
+    <b-button type="is-info" outlined rounded @click="first()">保存</b-button>
   </div>
+
 </template>
 
 
@@ -54,6 +55,7 @@ export default {
         this.$store.state.registeruser.userPassword != ""
       ) {
         Snackbar.open("保存成功");
+       
       } else {
         this.$buefy.snackbar.open({
           duration: 5000,
@@ -108,5 +110,7 @@ export default {
   float: left;
   width: 500px;
   height: 400px;
+
 }
+
 </style>

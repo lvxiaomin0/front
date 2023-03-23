@@ -12,7 +12,7 @@
           填写完毕，点提交
         </p>
       </div>
-      <b-collapse :open="false" position="is-bottom" aria-id="contentIdForA11y1">
+      <b-collapse :open="true" position="is-bottom" aria-id="contentIdForA11y1">
         <a slot="trigger" slot-scope="props" aria-controls="contentIdForA11y1">
           <b-icon :icon="!props.open ? 'menu-down' : 'menu-up'"></b-icon>
           {{ !props.open ? '查看全部' : '收起' }}

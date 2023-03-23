@@ -1,10 +1,10 @@
 <template>
-  <div class="tile is-ancestor" id="opctipy">
-    <div class="tile is-vertical is-8">
-      <progress class="progress is-whrite is-small" value="100%" max="30">
+  <div class="tile is-ancestor"   id="opctipy">
+    <div class="tile is-vertical is-8" >
+      <!-- <progress class="progress is-whrite is-small" value="100%" max="100">
         30%
-      </progress>
-      <div class="tile">
+      </progress> -->
+      <div class="tile"   >
         <div class="tile is-parent is-vertical">
           <article class="tile is-child box">
             <p class="title box">
@@ -15,20 +15,16 @@
                   @click="looking_small"
                 >
                   全部帖子
+                  
                 </button>
+                <a style="float:right;"> <strong>↓</strong></a>
               </p>
-            <div class="fuck">
+            <div class="fuck" @scroll="scrollEventFn">
+               
                 <div class="box"  v-for="(item, i) in info" :key="i" >
                   <article class="media" v-if="item.map">
                     <figure class="media-left">
                       <p class="image is-64x64">
-                        <!-- <img :src="require(`@/assets/${item.user.userImg}`)" class="size" /> -->
-                        <!-- <img src="../../assets/user1.jpg" alt /> -->
-                        <!-- <img
-                          src="../../assets/login_background_png.png"
-                          class="size"
-                          alt=""
-                        /> -->
                         <img
                           :src="item.map.user.userImg"
                           class="size"
@@ -39,35 +35,11 @@
                     <div class="media-content">
                       <div class="content">
                         <p>
-                          <strong>{{ item.map.user.userName }}</strong>
+                          <strong>@{{ item.map.user.userName }}</strong>
                           <br />
                           {{ item.artTitle }}
                         </p>
                       </div>
-                <!-- <nav class="level is-mobile">
-                  <div class="level-right">
-                    <a class="level-item">
-                      <span class="icon is-small">
-                        <i class="fab fa-hotjar"></i>
-                      </span>
-                      {{}}
-                    </a>
-
-                    <a class="level-item">
-                      <span class="icon is-small">
-                        <i class="fas fa-comment-dots"></i>
-                      </span>
-                      {{}}
-                    </a>
-
-                    <a class="level-item">
-                      <span class="icon is-small">
-                        <i class="fas fa-heart"></i>
-                      </span>
-                      {{}}
-                    </a>
-                  </div>
-                </nav> -->
                 <nav class="level is-mobile">
                   <div class="level-right">
                   <a>
@@ -104,10 +76,12 @@
                       </a>
                     </div>
                   </article>
-                  
                 </div>
             </div>
-            <hr />
+            <hr/>
+            <p style="text-align: center;">{{message}}</p>
+            
+            
           </article>
         </div>
       </div>
@@ -123,6 +97,7 @@
             </div>
           </div>
         </article>
+        
         <article class="tile is-child box">
           <p class="title">外链</p>
           <div class="control">
@@ -158,10 +133,6 @@
             
         </happy-scroll>
           
-          
-          
-         
-
         </div>
       </article>
     </div>
@@ -169,6 +140,13 @@
 </template>
 
 <script>
+import * as THREE from "three";
+// import Rings from "vanta/src/vanta.rings";
+// import Halo from "vanta/src/vanta.halo";
+// import Globe from "vanta/src/vanta.globe";
+// import Clouds from "vanta/src/vanta.clouds";
+import Net from "vanta/src/vanta.net";
+
 import axios from 'axios';
 import Findsome from '@/components/view/Findsome.vue'
 export default {
@@ -177,6 +155,7 @@ export default {
   },
   data() {
     return {
+      message:"",
       users: [
         {
           userId: 0,
@@ -229,11 +208,13 @@ export default {
     };
   },
   methods: {
+    //查看所有文章
     looking_small() {
       this.$router.push({
         name: "all",
       });
     },
+    //查看详情
     looking_big(i) {
       const detaildata = this.info[i];
       this.$router.push({
@@ -242,6 +223,7 @@ export default {
           detaildata: JSON.stringify(detaildata) 
         }
       });
+     
     },
     //获取文章
     getArticle(){
@@ -249,15 +231,47 @@ export default {
         "/service/get-article"
       )
       .then((response)=>{
-        this.info = response.data.data;
-        console.log("info:",this.info);
+         
+        const present= response?.data.data;
+        this.info = present.reverse();
+        // console.log("info:",this.info);
       })
+    },
+    //滑到底提示
+    scrollEventFn(e){
+      //e.srcElement.scrollTop: 滚动条距离页面顶部距离
+	    //e.srcElement.clientHeight: 滚动页面高度
+	    //e.srcElement.scrollHeight: 滚动条高度
+      if (e.srcElement.scrollTop + e.srcElement.clientHeight > e.srcElement.scrollHeight-30) {
+        this.message = "到 底线 了";
+        if (e.srcElement.scrollTop + e.srcElement.clientHeight < e.srcElement.scrollHeight){
+          this.message = "";
+        }
+      }
     },
 
 
   },
   mounted(){
-    this.getArticle()
+    this.getArticle();
+    this.vantaEffect = Net({
+      el: this.$refs.vantaRef,
+      THREE: THREE,
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0x3ffff3,
+      
+    });
+  },
+   beforeDestroy() {
+    if (this.vantaEffect) {
+      this.vantaEffect.destroy();
+    }
   }
 };
 </script>
@@ -269,7 +283,9 @@ export default {
   padding-bottom: 3rem;
 }
 .fuck {
-  height: 300px;
+  width: 100%;
+  height: 366px;
+
   overflow-y: auto;
 }
 .fucks {
@@ -290,8 +306,11 @@ export default {
   text-decoration: none;
 }
 #opctipy {
-  background-image: url("../../assets/background_end.png");
+  opacity: 0.99;  
+  /* z-index: 1;  */
+  background-image: url("../../assets/backSecond.png"); 
   background-repeat: round;
+  background-position-y: -10px;
   
 }
 </style>

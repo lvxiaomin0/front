@@ -4,10 +4,11 @@
       <b-step-item label="第一步" icon="account-key">
         <FirstStep />
 
-        <img src="../../assets/fire.png" alt />
+        <img src="../../assets/input_i.png" alt />
       </b-step-item>
       <b-step-item label="第二步" icon="account">
         <SecendStep />
+        <!-- <img src="../../assets/input_i_2.png" alt /> -->
       </b-step-item>
       <b-step-item label="第三步" icon="account-plus">
         <ThirdStep /><img src=https://wpimg.wallstcn.com/007ef517-bafd-4066-aae4-6883632d9646 alt />

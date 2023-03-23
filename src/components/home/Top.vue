@@ -9,7 +9,7 @@
       </b-navbar-item>
     </template>
     <template #start>
-      <b-navbar-item href="#" style="font-size: 20px"> 首页 </b-navbar-item>
+      <b-navbar-item href="/" style="font-size: 20px"> 首页 </b-navbar-item>
       <b-navbar-item @click="goto('/postArticle')" style="font-size: 20px">
         快速发帖
       </b-navbar-item>
@@ -39,9 +39,9 @@
       <b-navbar-item tag="div" v-if="!$store.state.loginStates">
         <div class="buttons">
           <a class="button is-primary" @click="register">
-            <strong>Sign up</strong>
+            <strong> 注 册 </strong>
           </a>
-          <a class="button is-light" @click="login"> Log in </a>
+          <a class="button is-light" @click="login"> 登 录 </a>
         </div>
       </b-navbar-item>
       <b-navbar-item
@@ -80,20 +80,20 @@
                   <b-menu-list label="Menu">
                     <b-menu-item
                       icon="information-outline"
-                      label="Info"
+                      label="个人信息"
                       @click="goto('/userhome')"
                     ></b-menu-item>
 
                     <b-menu-item icon="settings">
                       <template #label="props">
-                        Administrator
+                        Undetermined one
                         <b-icon
                           class="is-pulled-right"
                           :icon="props.expanded ? 'menu-down' : 'menu-up'"
                         ></b-icon>
                       </template>
                       <b-menu-item icon="account" label="Users"></b-menu-item>
-                      <b-menu-item icon="cellphone-link">
+                      <!-- <b-menu-item icon="cellphone-link">
                         <template #label>
                           Devices
                           <b-dropdown
@@ -115,34 +115,35 @@
                             >
                           </b-dropdown>
                         </template>
-                      </b-menu-item>
-                      <b-menu-item
+                      </b-menu-item> -->
+                      <!-- <b-menu-item
                         icon="cash-multiple"
                         label="Payments"
                         disabled
-                      ></b-menu-item>
+                      ></b-menu-item> -->
                     </b-menu-item>
-                    <b-menu-item icon="account" label="My Account">
-                      <b-menu-item label="Account data"></b-menu-item>
-                      <b-menu-item label="Addresses"></b-menu-item>
+                    <b-menu-item icon="account" label="Undetermined two">
+                      <b-menu-item label="Undetermined "></b-menu-item>
+                      <b-menu-item label="Undetermined "></b-menu-item>
                     </b-menu-item>
                   </b-menu-list>
 
                   <b-menu-list>
                     <b-menu-item
-                      label="Expo"
+                      label="Undetermined three"
                       icon="link"
                       tag="router-link"
                       target="_blank"
-                      to="/expo"
+                      to=""
                     ></b-menu-item>
                   </b-menu-list>
+                  
                   <b-menu-list label="Actions">
                     <b-menu-item icon="logout" label="退出登录" @click="logout"></b-menu-item>
                   </b-menu-list>
                   <b-menu-list label="Fuck out">
                   
-                    <b-menu-item label="注销账号" click=""></b-menu-item>
+                    <b-menu-item label="注销账号" @click="getFuckout()"></b-menu-item>
                   </b-menu-list>
                 </b-menu>
                 
@@ -199,6 +200,22 @@ export default {
       const user = window.localStorage.getItem("user");
       const users = JSON.parse(user);
       this.users = users;
+    },
+    getFuckout(){
+      this.$buefy.snackbar.open({
+                    indefinite: true,
+                    message: 'Are you sure ? Re-registration is not possible within one week of deletion..',
+                    cancelText: 'Cancel',
+                    onAction: ()=>{
+                      this.$buefy.toast.open({
+                          duration: 2000,
+                          message: `You deleted yourself`,
+                          position: 'is-bottom',
+                          type: 'is-danger'
+                      })
+                    }
+                    
+                })
     }
     
   }, 

@@ -2,18 +2,18 @@
   <div id="BackImage">
     <div class="PersonTop">
       <div class="PersonTop_img">
-        <img :src="$store.state.user.userImg" />
+        <img :src="form.avatar" />
       </div>
       <div class="PersonTop_text">
         <div class="user_text">
           <div class="user_name">
-            <span> {{ $store.state.user.userName }} </span>
+            <span> {{ form.nickname }} </span>
           </div>
-          <div class="user-v" v-if="$store.state.user.userName">
+          <div class="user-v" v-if="form.nickname">
             <span class="user-v-font">测试号</span>
           </div>
           <div class="user_qianming">
-            <span> {{ $store.state.user.userBlog }}</span>
+            <span> {{ form.design }}</span>
           </div>
           <div class="user_anniu">
             <el-button
@@ -31,43 +31,43 @@
             :visible.sync="dialogFormVisible"
             :modal="false"
             :append-to-body="true"
-             width="40%"
-             close-on-click-modal
+            width="40%"
+            close-on-click-modal
             :before-close="handleClose()"
           >
             <el-form
               :model="form"
-              :rules="rules"
+              
               ref="form"
               :label-width="formLabelWidth"
             >
               <div class="updateinfo">
-                <div class="left" >
+                <div class="left">
                   <el-form-item label="头像" prop="avatar">
-                    <!-- <img
-                      style="width: 150px; height: 110px"
-                      :src="imageUrl"
-                    /> -->
+                    
                     <el-upload
-                      class="avatar-uploader"
                       action=""
-                      :show-file-list="false"
-                      :auto-upload ="true"
+                      list-type="picture-card"
+                      :auto-upload="true"
                       :http-request="handlerUpload"
-                      
                     >
-                      <img v-if="imageUrl" :src="form.avatar" class="avatar" />
-                      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                      <i slot="default" class="el-icon-plus"></i>
+                      <div slot="file" slot-scope="{ file }">
+                        <img
+                          class="el-upload-list__item-thumbnail"
+                          :src="file.url"
+                          alt=""
+                        />
+                      </div>
                     </el-upload>
-
                   </el-form-item>
-                  <el-form-item label="账号密码" prop="password" >
+                  <el-form-item label="账号密码" prop="password">
                     <el-input v-model="form.password"></el-input>
                   </el-form-item>
                   <el-form-item label="昵称" prop="nickname">
                     <el-input v-model="form.nickname"></el-input>
                   </el-form-item>
-                 
+
                   <el-form-item label="性别" prop="sex">
                     <el-switch
                       v-model="form.sex"
@@ -80,15 +80,15 @@
                     >
                     </el-switch>
                   </el-form-item>
-                  
                 </div>
-                <div class="right" >
+                <div class="right">
                   <el-form-item label="邮箱" prop="email">
-                    <el-input v-model="$store.state.user.userEmail" disabled></el-input>
+                    <el-input
+                      v-model="$store.state.user.userEmail"
+                      disabled
+                    ></el-input>
                   </el-form-item>
-                  <el-form-item label="院系" prop="area" :label-width="formLabelWidth">
-                    <el-input v-model="form.area"></el-input>
-                  </el-form-item>
+                  
                   <el-form-item label="兴趣爱好" prop="hobby">
                     <el-input v-model="form.hobby"></el-input>
                   </el-form-item>
@@ -103,7 +103,7 @@
             </el-form>
             <div slot="footer" class="dialog-footer">
               <el-button @click="dialogFormVisible = false">取 消</el-button>
-              <el-button type="primary" @click="dialogFormVisible = false"
+              <el-button type="primary" @click="updatePersonalInfo()"
                 >确 定</el-button
               >
             </div>
@@ -129,7 +129,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 import PersonalEdit from "./PersonalEdit.vue";
 export default {
   name: "Personal",
@@ -138,86 +138,95 @@ export default {
   },
   data() {
     return {
-      formLabelWidth: '30px',
+      formLabelWidth: "30px",
       dialogFormVisible: false,
-      imageUrl:"",
+      disabled: false,
       form: {
-        avatar: "",
+        avatar: JSON.parse(window.localStorage.getItem("user")).userImg,
         password: "",
-        nickname: "",
-        mobilePhoneNumber: "",
-        sex: "",
-        area: "",
-        hobby: "",
-        design: "",
-      },
-      rules: {
-        nickname: [
-          { required: true, message: "昵称不能为空", trigger: "blur" },
-        ],
-        password: [
-          { required: true, message: "账号密码不能为空", trigger: "blur" },
-        ],
+        nickname: JSON.parse(window.localStorage.getItem("user")).userName,
+        mobilePhoneNumber: JSON.parse(window.localStorage.getItem("user")).userPhone,
+        sex: JSON.parse(window.localStorage.getItem("user")).userSex,
+        hobby: JSON.parse(window.localStorage.getItem("user")).userBlog,
+        design: JSON.parse(window.localStorage.getItem("user")).userShow,
       },
       formLabelWidth: "120px",
     };
   },
+
   methods: {
-    //修改用户头像
-    handlerUpload(data){
-      this.form.avatar = data.file;
-      console.log(data);
-      console.log(this.form.avatar);
-       
+    //修改用户信息
+    updatePersonalInfo() {
+      var formData = new FormData();
+      formData.append("avatar", this.form.avatar);
+      formData.append("userPhone", this.form.mobilePhoneNumber);
+      formData.append("userBlog", this.form.hobby);
+      formData.append("userShow", this.form.design);
+      formData.append("userSex", this.form.sex);
+      formData.append("userName", this.form.nickname);
+      formData.append("userId",JSON.parse(window.localStorage.getItem("user")).userId);
+
+      axios({
+        url: "/user/update-user",
+        data: formData,
+        method: "post",
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }).then((response)=>{
+        response.data
+        console.log(response.data);
+        this.dialogFormVisible = false
+      })
+      ;
     },
-    
+    handlerUpload(data) {
+      console.log(data.file);
+      this.form.avatar = data.file;
+    },
+
     myfan() {},
     myfollow() {},
     edit() {
       // this.$router.push("/personaledit");
     },
-    
     handleClose() {
-        this.dialogVisible = false;
+      this.dialogVisible = false;
     },
-    //更新个人信息
-    updatePersonalInfo(){
-      var formData = new FormData();
-      formData.append("avatar",this.form.avatar);
-      formData.append("userName",this.form.nickname);
-      formData.append("userPassword",this.form.password);
-      formData.append("userShow",this.form.design);
-      formData.append("userPhone",this.form.mobilePhoneNumber);
-      formData.append("userBlog",this.form.hobby);
-      axios.post("/user/update-user",{
-        formData: formData
-      }).then((response)=>{
-          
-          console.log(response.data);
-      })
-    },
+  
   },
 };
 </script>
 
 <style scoped>
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+}
 @import "../../assets/font.css";
 body {
   font-family: alimama;
 }
-.updateinfo {
-  height: 350px;
-  overflow: auto;
-}
-.left {
-  width: 330px;
-  float: left;
-}
-.right {
-  width: 330px;
-  overflow: hidden;
-  /* float: right; */
-}
+
 .me-video-player {
   background-color: transparent;
   width: 100%;

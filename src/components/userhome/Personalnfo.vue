@@ -3,7 +3,7 @@
     <el-card>
       <el-descriptions class="margin-top" title="简介" :column="2" border>
         <template slot="extra">
-          <el-button type="primary" v-if="$route.params.id==$store.state.id" size="small">操作</el-button>
+          <!-- <el-button type="primary" v-if="$route.params.id==$store.state.id" size="small">操作</el-button> -->
         </template>
         <el-descriptions-item>
           <template slot="label">

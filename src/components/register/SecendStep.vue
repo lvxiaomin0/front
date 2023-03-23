@@ -78,8 +78,10 @@ export default {
   width: 500px;
   height: 500px;
   text-align: center;
+  
 }
 .f {
   padding-top: 8rem;
 }
+
 </style>

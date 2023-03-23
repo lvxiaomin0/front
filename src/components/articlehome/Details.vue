@@ -108,7 +108,7 @@
                       <!-- <a >这是点赞</a>
                       &nbsp;
                       <a >这是收藏</a> -->
-                      <Nice :userData="this.info.map.user.userId"></Nice>
+                      <Nice :userData="this.info.map.user.userId" :articleId="this.info.artId"></Nice>
                     </td>
                   </tr>
                 </tbody>
@@ -145,16 +145,14 @@
           <div class="sep20"></div>
           <div class="box" style="border-bottom: 0px">
             <div class="header">
-              <div class="fr" v-if="info">
-                <!-- <img :src="require(`../../assets/${info.user}`)" class="size" /> -->
+              <div class="image is-16by9" v-if="info">
                 <img :src="info.artImage" class="size" alt="" />
+
               </div>
               <div class="sep10"></div>
-              <h1>{{ info.artTitle }}</h1>
+              <h1>-> {{ info.artTitle }}</h1>
 
-              <small class="gray" v-if="info.map.user">{{
-                info.map.user.userName
-              }}</small>
+              <small class="gray" v-if="info.map.user">@{{info.map.user.userName}}</small>
             </div>
             <div class="cell">{{ info.artContent }}</div>
           </div>
@@ -347,11 +345,23 @@ export default {
    * 沟子
    */
   mounted() {
-    this.info = JSON.parse(this.$route.query.detaildata);
+    this.info = JSON?.parse(this.$route.query.detaildata);
     this.GetComments();
     this.nowTimes();
+
+    this.updateArtHotAndView();
   },
   methods: {
+    updateArtHotAndView(){
+      //  console.log(this.info.artId);
+       //文章热度加10，访问量加1
+        axios.post("/service/update-arthrotomies",{
+              artId: this.info.artId
+        }).then((response)=>{
+            // console.log(response.data);
+        })
+    },
+    
     Post() {
       this.$router.push("/postarticle");
     },
@@ -360,7 +370,7 @@ export default {
      */
     GetComments() {
       axios
-        .get("/comments/get-comments?artId=" + this.info.artId, {})
+        .get("/comments/get-comments?artId=" + this.info.artId)
         .then((response) => {
           this.comments = response.data.data;
         });
@@ -372,7 +382,7 @@ export default {
       axios
         .post("/comments/set-comments", {
           comArtId: this.info.artId,
-          comUserId: this.$store.state.user.userId,
+          comUserId: JSON.parse(window.localStorage.getItem("user")).userId,
           comContent: this.reply_content,
         })
         .then((response) => {
