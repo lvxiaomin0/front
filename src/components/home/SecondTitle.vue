@@ -19,7 +19,7 @@
                 </button>
                 <a style="float:right;"> <strong>↓</strong></a>
               </p>
-            <div class="fuck" @scroll="scrollEventFn">
+            <div class="fuck" @scroll="scrollEvent">
                
                 <div class="box"  v-for="(item, i) in info" :key="i" >
                   <article class="media" v-if="item.map">
@@ -80,8 +80,6 @@
             </div>
             <hr/>
             <p style="text-align: center;">{{message}}</p>
-            
-            
           </article>
         </div>
       </div>
@@ -140,12 +138,7 @@
 </template>
 
 <script>
-import * as THREE from "three";
-// import Rings from "vanta/src/vanta.rings";
-// import Halo from "vanta/src/vanta.halo";
-// import Globe from "vanta/src/vanta.globe";
-// import Clouds from "vanta/src/vanta.clouds";
-import Net from "vanta/src/vanta.net";
+
 
 import axios from 'axios';
 import Findsome from '@/components/view/Findsome.vue'
@@ -238,41 +231,29 @@ export default {
       })
     },
     //滑到底提示
-    scrollEventFn(e){
+    scrollEvent(e){
       //e.srcElement.scrollTop: 滚动条距离页面顶部距离
 	    //e.srcElement.clientHeight: 滚动页面高度
 	    //e.srcElement.scrollHeight: 滚动条高度
-      if (e.srcElement.scrollTop + e.srcElement.clientHeight > e.srcElement.scrollHeight-30) {
-        this.message = "到 底线 了";
-        if (e.srcElement.scrollTop + e.srcElement.clientHeight < e.srcElement.scrollHeight){
+      // console.log(e.srcElement.scrollTop);
+      // console.log(e);
+      if (e.srcElement.scrollTop + e.srcElement.clientHeight < e.srcElement.scrollHeight){
           this.message = "";
+          if (e.srcElement.scrollTop + e.srcElement.clientHeight > e.srcElement.scrollHeight -200) {
+          this.message = "到 底线 了";   
+            }
         }
-      }
+      
+     
+      
     },
 
 
   },
   mounted(){
     this.getArticle();
-    this.vantaEffect = Net({
-      el: this.$refs.vantaRef,
-      THREE: THREE,
-      mouseControls: true,
-      touchControls: true,
-      gyroControls: false,
-      minHeight: 200.00,
-      minWidth: 200.00,
-      scale: 1.00,
-      scaleMobile: 1.00,
-      color: 0x3ffff3,
-      
-    });
-  },
-   beforeDestroy() {
-    if (this.vantaEffect) {
-      this.vantaEffect.destroy();
-    }
   }
+  
 };
 </script>
 
@@ -285,8 +266,8 @@ export default {
 .fuck {
   width: 100%;
   height: 366px;
-
-  overflow-y: auto;
+  /* overflow-y: auto; */
+  overflow-y: scroll;
 }
 .fucks {
   height: 600px;

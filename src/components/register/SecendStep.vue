@@ -1,29 +1,33 @@
 <template>
   <div class="secend">
     <section class="f">
-      <b-field label="电话" :label-position="labelPosition">
+      <b-field label="电话"  type="is-white" custom-class="has-text-white">
         <b-input
           v-model="userPhone"
           required
           pattern="^((\d{11})|(\d{7,8})|(\d{4}|\d{3})-(\d{7,8}))$"
           validation-message="请输入正确的电话号码!"
+          class="opacitys"
+          placeholder="Your phone number "
         ></b-input>
       </b-field>
 
-      <b-field label="性别" :label-position="labelPosition">
-        <b-select placeholder="选择性别" v-model="userSex">
-          <option value="男">男</option>
-          <option value="女">女</option>
-        </b-select>
+      
+
+      <b-field label="个性签名"  type="is-white" custom-class="has-text-white">
+        <b-input maxlength="200" type="textarea" placeholder="Leave your signature" v-model="userShow" class="opacitys"></b-input>
       </b-field>
 
-      <b-field label="个性签名" :label-position="labelPosition">
-        <b-input maxlength="200" type="textarea" v-model="userShow"></b-input>
+      <b-field label="性别" type="is-white" custom-class="has-text-white" >
+            <b-select placeholder="Please select your gender" class="opacitys" >
+                <option value="男">男</option>
+                <option value="女">女</option>
+            </b-select>
       </b-field>
-
-      <hr />
+      
     </section>
-    <b-button type="is-info" outlined rounded @click="secend">保存</b-button>
+    <br>
+    <b-button type="is-primary"  @click="secend()">保存</b-button>
   </div>
 </template>
 
@@ -53,18 +57,18 @@ export default {
         Snackbar.open("保存成功");
       } else {
         this.$buefy.snackbar.open({
-          duration: 5000,
+          duration: 3000,
           message: "请填写完整信息",
           type: "is-danger",
           position: "is-bottom-left",
-          actionText: "确定",
+          
           queue: false,
-          onAction: () => {
-            this.$buefy.toast.open({
-              message: "信息填写完整再点击保存",
-              queue: false
-            });
-          }
+          // onAction: () => {
+          //   this.$buefy.toast.open({
+          //     message: "信息填写完整再点击保存",
+          //     queue: false
+          //   });
+          // }
         });
       }
     }
@@ -74,14 +78,20 @@ export default {
 
 <style scoped>
 .secend {
-  margin: auto;
-  width: 500px;
-  height: 500px;
-  text-align: center;
+  /* margin: 20px; */
+  margin-left: 10%;
+  float: left;
+  width: 40%;
+  height: 30%;
+  /* text-align: center; */
+  
   
 }
+.opacitys{
+  opacity: 0.5;
+}
 .f {
-  padding-top: 8rem;
+  padding-top: 3rem;
 }
 
 </style>

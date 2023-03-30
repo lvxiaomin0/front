@@ -1,19 +1,19 @@
 <template>
   <div class="first">
     <section>
-      <b-field label="用户名">
-        <b-input v-model="userName" placeholder="username" maxlength="30"></b-input>
+      <b-field label="用户名" type="is-white" custom-class="has-text-white">
+        <b-input v-model="userName" placeholder="username" maxlength="30" required></b-input>
         <!-- required pattern="[A-Za-z][A-Za-z0-9_]{4,14}"
         validation-message="用户名不能为空!"-->
       </b-field>
 
-      <b-field label="邮箱">
+      <b-field label="邮箱" type="is-white" custom-class="has-text-white">
         <b-input type="email" @blur="To_judge_username()" v-model="userEmail"  placeholder="Your email" required></b-input>
     
       </b-field> 
       <br>
-
-      <b-field label="密码">
+      
+      <b-field label="密码"  type="is-white" custom-class="has-text-white" >
         <b-input
           type="password"
           password-reveal
@@ -23,7 +23,8 @@
         ></b-input>
       </b-field>
     </section>
-    <b-button type="is-info" outlined rounded @click="first()">保存</b-button>
+    <br>
+    <b-button type="is-primary"   @click="first()">保存</b-button>
   </div>
 
 </template>
@@ -62,14 +63,14 @@ export default {
           message: "请填写完整信息",
           type: "is-danger",
           position: "is-bottom-left",
-          actionText: "确定",
+          // actionText: "确定",
           queue: false,
-          onAction: () => {
-            this.$buefy.toast.open({
-              message: "信息填写完整再点击保存",
-              queue: false
-            });
-          }
+          // onAction: () => {
+          //   this.$buefy.toast.open({
+          //     message: "信息填写完整再点击保存",
+          //     queue: false
+          //   });
+          // }
         });
       }
     },
@@ -77,11 +78,11 @@ export default {
       axios
         .post("/user/get-user", {
           userEmail: this.userEmail
-          
+
         })
         .then((response) => {
-         this.judge_username_message = response.data.msg;
          console.log(this.judge_username_message);
+         this.judge_username_message = response.data.msg;
          this.progress(this.judge_username_message);
         })
         .catch((error) => {
@@ -106,11 +107,11 @@ export default {
 
 <style scoped>
 .first {
-  text-align: center;
+  margin-left: 10%;
   float: left;
   width: 500px;
   height: 400px;
-
+  
 }
 
 </style>

@@ -13,7 +13,7 @@
           <Slider></Slider>
           </div> -->
 
-        <div class="tile is-child is-10" id="mood">
+        <!-- <div class="tile is-child is-10" id="mood">
           <div>
             <el-carousel
               :interval="3000"
@@ -26,18 +26,18 @@
               <el-carousel-item
                 v-for="(item, index) in MobileMessage"
                 :key="index"
-              >
-                <!-- <h3 class="medium">{{ item }}</h3> -->
-                <el-link type="primary">{{ item.info.infoItem }}</el-link>
+              > 
+               
+                 <el-link type="primary">{{ item.info.infoItem }}</el-link>
                 <br />
-                <el-link type="primary">{{ item.info.infoAuth }}</el-link>
-                <!-- <el-link type="info">{{item.info}}</el-link> -->
-              </el-carousel-item>
+                <el-link type="primary">{{ item.info.infoAuth }}</el-link> 
+                
+               </el-carousel-item>
             </el-carousel>
           </div>
-
-         
-        </div>
+        </div> -->
+        
+        <MobileMess></MobileMess>
       </article>
     </div>
 
@@ -45,11 +45,12 @@
       <article class="b-tooltips is-child box" id="opacity_item">
         <p class="subtitle title is-4">问题广场</p>
         <b-tooltip
-          label="也许你需要一点小小的帮助！！"
+          label="所有的问题都在这说"
           position="is-bottom"
+          
           :animated="false"
         >
-          <b-button label="留个言吧" @click="help()" />
+          <b-button type="is-primary" label="留个言吧" @click="help()" />
         </b-tooltip>
 
         <b-tooltip
@@ -57,7 +58,7 @@
           type="is-dark"
           position="is-bottom"
         >
-          <b-button label="吐槽帖" type="is-primary" />
+          <b-button label="吐槽6.6" type="is-primary" />
         </b-tooltip>
 
         <b-tooltip label="生活?" type="is-light" position="is-bottom">
@@ -72,7 +73,7 @@
         </b-tooltip>
 
         <b-tooltip
-          label="You love the light variant, dont you?"
+          label="This is test?"
           type="is-primary is-light"
           position="is-bottom"
         >
@@ -83,7 +84,7 @@
           type="is-dark"
           position="is-bottom"
         >
-          <b-button label="其它帖" type="is-primary" />
+          <b-button label="其它o.O" type="is-primary" />
         </b-tooltip>
 
         <b-tooltip
@@ -91,7 +92,7 @@
           position="is-bottom"
           :animated="false"
         >
-          <b-button label="许愿帖" />
+          <b-button label="许愿@" />
         </b-tooltip>
       </article>
     </div>
@@ -120,14 +121,7 @@
                   .</a
                 >
                 <hr />
-                <!-- <a href="">{{everyMessage.hitokoto}}--来自《{{everyMessage.from}}》 .{{everyMessage.from_who}}</a>
-                  <hr>
-                  <a href="">{{everyMessage.hitokoto}}--来自《{{everyMessage.from}}》 .{{everyMessage.from_who}}</a>
-                  <hr>
-                  <a href="">{{everyMessage.hitokoto}}--来自《{{everyMessage.from}}》 .{{everyMessage.from_who}}</a>
-                  <hr>
-                  <a href="">{{everyMessage.hitokoto}}--来自《{{everyMessage.from}}》 .{{everyMessage.from_who}}</a>
-                  <hr> -->
+               
               </section>
             </happy-scroll>
           </b-tab-item>
@@ -171,12 +165,12 @@
 <script>
 import axios from "axios";
 import Slider from "../view/Slider.vue";
-import Mood from "../view/Mood.vue";
+import MobileMess from '../view/MobileMessInfo.vue'
 
 export default {
   components: {
     Slider,
-    Mood,
+    MobileMess
   },
   data() {
     return {
@@ -241,7 +235,7 @@ export default {
         })
         .catch(console.error);
     },
-    //页面跳转  根据 不同的帖子类型，展示不同的留言板块  待实现
+    //页面跳转  
     help() {
       this.$router.push("messageboard");
     },

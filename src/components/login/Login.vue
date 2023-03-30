@@ -57,10 +57,7 @@
 <script>
 import * as THREE from "three";
 import Rings from "vanta/src/vanta.rings";
-import Halo from "vanta/src/vanta.halo";
-import Globe from "vanta/src/vanta.globe";
-import Clouds from "vanta/src/vanta.clouds";
-import Net from "vanta/src/vanta.net";
+
 
 import axios from "axios";
 // import {nanoid} from "nanoid"
@@ -157,6 +154,9 @@ export default {
     //忘记密码
     updatePwd() {
       console.log("忘记密码被触发");
+      this.$router.push({
+        name: "ForgotHome",
+      });
     },
   },
 };

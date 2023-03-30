@@ -10,12 +10,12 @@
       
       <div class="cell">
         <a href="/">{{ $store.state.user.userName }}</a>
-        <span class="chevron">&nbsp;›&nbsp;</span> 留下你的新留言
+        <span class="chevron" style="color:white">&nbsp;›&nbsp;  留下你的新留言</span>
       </div>
       <!--留言板 -->
       <textarea
         class="textarea is-success "
-        placeholder="你最好是好好说昂！"
+        placeholder="礼貌发言喔！"
         v-model="message"
         slot="prepend"
         maxlength="200"
@@ -36,14 +36,14 @@
           <el-timeline-item
             v-for="(item, index) in pagemessages"
             :key="index"
-            :timestamp="item.createDate"
+            :timestamp="item.mtime"
             placement="top"
           >
             <el-card class="el-card-m">
-              <span class="el-card-m-content">{{ item.content }}</span>
+              <span class="el-card-m-content">{{ item.mcontent }}</span>
               <div />
               <span class="el-card-m-nick-name"
-                >{{ item.nickName }} 提交于 {{ item.createTime }}</span
+                >{{ item.mnickname }} 提交于 {{ item.mtime }}</span
               >
                <!-- 可修改可删除双按钮 -->
                
@@ -62,10 +62,10 @@
       <el-pagination
         background
         :current-page="currentPage"
-        :page-size="pagesize"
+        :page-size="3"
         layout="prev, pager, next"
-        :total="allmessages.length"
-        :hide-on-single-page="true"
+        :total="totalCount"
+        :hide-on-single-page="false"
         @current-change="handleCurrentChange"
       />
     </el-card>
@@ -75,31 +75,45 @@
 <script>
 // 格式化时间函数
 import { parseTime } from "@/utils/index";
+import axios from 'axios';
 export default {
   name:"messageboard",
   data() {
     return {
+      userId: JSON.parse(window.localStorage.getItem("user")).userId,
       nickName: this.$store.state.user.userName,
-      message: "你最好是好好说昂！！！",
+      message: "",
       pagesize: 3,
       currentPage: 1,
+      totalCount:0,
       pagemessages: [],
-      allmessages: [],
+      messagetotime: []
+      
     };
   },
   mounted() {
-    // this.nickName = this.$store.state.user.userName;
+    this.doQuery();
   },
   methods: {
-    // 模拟后台查询
+    // 后台查询
     doQuery() {
-      const start = (this.currentPage - 1) * this.pagesize;
-      const end = start + this.pagesize;
-      for (var i = start; i < end; i++) {
-        if (i < this.allmessages.length) {
-          this.pagemessages.push(this.allmessages[i]);
-        }
-      }
+      axios.get("/message/get-message",{
+          params:{
+            currentPage: this.currentPage,
+            pageSize: this.pagesize
+          }
+      }).then((response)=>{
+          const pageData = response.data;
+          //总数
+          this.totalCount = pageData.total;
+
+          //数据
+          this.messagetotime = pageData.records;
+          this.pagemessages = this.messagetotime;
+          
+          console.log(response.data);
+      })
+    
     },
     // 翻页
     handleCurrentChange(val) {
@@ -110,32 +124,25 @@ export default {
     // 提交留言
     submitMessage() {
       if (
-        this.nickName === "" ||
-        this.nickName.replace(/(^\s*)|(\s*$)/g, "") === ""
-      ) {
-        this.$message("你还没有登录");
-        return;
-      }
-      if (
         this.message === "" ||
         this.message.replace(/(^\s*)|(\s*$)/g, "") === ""
       ) {
         this.$message("留言不能为空");
         return;
       }
-      //  模拟保存数据
-      var timestamp = Date.parse(new Date());
-      this.allmessages.push({
-        createTime: parseTime(timestamp),
-        createDate: parseTime(timestamp, "{y}-{m}-{d}"),
-        nickName: this.nickName,
-        content: this.message,
-      });
-      // this.nickName = "";
-      this.message = "";
+      //保存数据
+      axios.post("/message/set-message",{
+        userId: this.userId,
+        mNickname: this.nickName,
+        mContent: this.message,
+      }).then((response)=>{
+        response.data
+        this.message = "";
       // 翻页到最后一页
-      this.currentPage = Math.ceil(this.allmessages.length / this.pagesize, 0);
+      this.currentPage = Math.ceil(this.pagemessages.length / this.pagesize, 0);
       this.handleCurrentChange(this.currentPage);
+      })
+      
     },
   },
 };

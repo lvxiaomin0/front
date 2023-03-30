@@ -177,6 +177,16 @@ export default new VueRouter({
         },
       ]
     },
+    {
+          path: "/ForgotHome",
+          name: "ForgotHome",
+          component: () => import("../components/forgot/ForgotHome.vue")
+    },
+    {
+      path: "/SetNewPwd",
+      name: "SetNewPwd",
+      component: () => import("../components/forgot/SetNewPwd.vue")
+    }
 
 
 
