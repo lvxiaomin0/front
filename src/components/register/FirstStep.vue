@@ -2,13 +2,13 @@
   <div class="first">
     <section>
       <b-field label="用户名" type="is-white" custom-class="has-text-white">
-        <b-input v-model="userName" placeholder="username" maxlength="30" required></b-input>
+        <b-input v-model="userName" placeholder="username" class="opacitys" maxlength="30" required></b-input>
         <!-- required pattern="[A-Za-z][A-Za-z0-9_]{4,14}"
         validation-message="用户名不能为空!"-->
       </b-field>
 
       <b-field label="邮箱" type="is-white" custom-class="has-text-white">
-        <b-input type="email" @blur="To_judge_username()" v-model="userEmail"  placeholder="Your email" required></b-input>
+        <b-input type="email" @blur="To_judge_username()" v-model="userEmail" class="opacitys"  placeholder="Your email" required></b-input>
     
       </b-field> 
       <br>
@@ -20,6 +20,7 @@
           placeholder="Your password"
           required
           v-model="userPassword"
+          class="opacitys"
         ></b-input>
       </b-field>
     </section>
@@ -112,6 +113,9 @@ export default {
   width: 500px;
   height: 400px;
   
+}
+.opacitys{
+  opacity: 0.5;
 }
 
 </style>

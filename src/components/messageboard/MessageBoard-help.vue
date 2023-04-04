@@ -108,7 +108,7 @@ export default {
           this.totalCount = pageData.total;
 
           //数据
-          this.messagetotime = pageData.records;
+          this.messagetotime = pageData.records.reverse();
           this.pagemessages = this.messagetotime;
           
           console.log(response.data);

@@ -45,6 +45,7 @@ export default new VueRouter({
             next()
           } else {
             Snackbar.open({
+              duration: 2000,
               message: '你还没有登录',
               type: 'is-warning',
               position: 'is-top',
@@ -67,6 +68,7 @@ export default new VueRouter({
             next()
           } else {
             Snackbar.open({
+              duration: 2000,
               message: '你还没有登录',
               type: 'is-warning',
               position: 'is-top',
@@ -111,6 +113,7 @@ export default new VueRouter({
             next()
           } else {
             Snackbar.open({
+              duration: 2000,
               message: '你还没有登录',
               type: 'is-warning',
               position: 'is-top',
@@ -138,6 +141,7 @@ export default new VueRouter({
             next()
           } else {
             Snackbar.open({
+              duration: 2000,
               message: '你还没有登录',
               type: 'is-warning',
               position: 'is-top',

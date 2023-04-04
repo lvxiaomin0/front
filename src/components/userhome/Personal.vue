@@ -180,6 +180,10 @@ export default {
       })
       ;
     },
+    //实时更新用户信息
+    updateRealTime(){
+
+    },
     handlerUpload(data) {
       console.log(data.file);
       this.form.avatar = data.file;

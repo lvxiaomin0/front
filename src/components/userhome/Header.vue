@@ -12,7 +12,7 @@
        &nbsp;
        &nbsp;
       <b-navbar-item href="#" style="font-size: 20px"> 首页 </b-navbar-item>
-      <b-navbar-item @click="goto('/postArticle')" style="font-size: 20px">快速发帖</b-navbar-item>
+      <b-navbar-item @click="skipto('/postArticle')" style="font-size: 20px">快速发帖</b-navbar-item>
       <b-navbar-item href="http://42.192.90.40:4000/" style="font-size: 20px"> 博客 </b-navbar-item>
      
       <b-navbar-dropdown label="更多" style="font-size: 20px">
@@ -45,6 +45,11 @@ export default {
       return {
         name:""
       }
+    },
+    methods: {
+      skipto(path){
+      this.$router.push(path)
+    },
     },
 }
 </script>

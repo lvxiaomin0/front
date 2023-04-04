@@ -142,19 +142,15 @@
             </section>
           </b-tab-item>
           <!-- Resource -->
-          <b-tab-item label="资源下载" icon="apps">
-               
-            <section>
-              <el-button
-                  size="mini"
-                  type="success"
-                  icon="el-icon-download"
-                  >点击下载</el-button
-                >
+          <b-tab-item label="资源下载" icon="apps" >
+            
+            <section  v-for="(item,index) in tempInfo" :key="index">
+              <span>{{item.upTime}}</span> {{item.upFileName}}
+              
+             <a style="float:right;" :href="'https://'+item.upFileUrl">点击下载</a>
+
             </section>
             
-
-           
           </b-tab-item>
         </b-tabs>
       </article>
@@ -174,55 +170,12 @@ export default {
   },
   data() {
     return {
-      MobileMessage: [
-        {
-          info: {
-            infoItem: "就算是自私……我也希望那些人能够永远都有笑容……",
-            infoAuth: "明哥哥"
-          },
-          
-        },
-        {
-          info: {
-            infoItem: "越是试着忘记，越是记得深刻 。",
-            infoAuth: "明哥哥哦"
-          },
-        },
-        {
-          info: {
-            infoItem:
-              "温柔正确的人总是难以生存，因为这世界既不温柔，也不正确。",
-              infoAuth: "明哥哥呢"
-          },
-        },
-        {
-          info: {
-            infoItem: "昭昭若日月之明，离离如星辰之行。",
-            infoAuth: "明哥哥呀"
-          },
-        },
-        {
-          info: {
-            infoItem: "不努力就只有看别人收到好消息~Q.q",
-            infoAuth: "明哥哥呀哈"
-          },
-        },
-      ],
+      MobileMessage: [],
       count: 0,
       tags: [],
-      isTag1Active: true,
-      isTag2Active: true,
-      isTag3Active: true,
-      isTag4Active: true,
-      isTag5Active: true,
-      isTag6Active: true,
       key: "idvHfTqJf6mEqMA0iXNoIjxFju",
       everyMessage: "",
-      TempInfo: [
-        {
-          message: "",
-        },
-      ],
+      tempInfo: [],
     };
   },
   methods: {
@@ -239,9 +192,19 @@ export default {
     help() {
       this.$router.push("messageboard");
     },
+    //获取上传资源
+    getResourse(){
+      axios.get("http://localhost:8081/admin/get-upFileList",{})
+      .then((response)=>{
+        const data = response.data;
+        this.tempInfo = data
+        console.log(this.tempInfo);
+      })
+    }
   },
   mounted() {
     this.getEverydayMessage();
+    this.getResourse();
   },
 };
 </script>

@@ -10,7 +10,7 @@
     </template>
     <template #start>
       <b-navbar-item href="/" style="font-size: 20px"> 首页 </b-navbar-item>
-      <b-navbar-item @click="goto('/postArticle')" style="font-size: 20px">
+      <b-navbar-item @click="skipto('/postArticle')" style="font-size: 20px">
         快速发帖
       </b-navbar-item>
       <b-navbar-dropdown label="更多" style="font-size: 20px">
@@ -81,7 +81,7 @@
                     <b-menu-item
                       icon="information-outline"
                       label="个人信息"
-                      @click="goto('/userhome')"
+                      @click="skipto('/userhome')"
                     ></b-menu-item>
 
                     <b-menu-item icon="settings">
@@ -177,7 +177,7 @@ export default {
     }
   },
   methods: {
-    goto(path){
+    skipto(path){
       this.$router.push(path)
       
     },
