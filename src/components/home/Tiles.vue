@@ -138,19 +138,15 @@
                 >
                 </b-taginput>
               </b-field>
-              <!-- <p class="content"><b>Tags:</b> {{ tags }}</p> -->
+              
             </section>
           </b-tab-item>
           <!-- Resource -->
           <b-tab-item label="资源下载" icon="apps" >
-            
             <section  v-for="(item,index) in tempInfo" :key="index">
               <span>{{item.upTime}}</span> {{item.upFileName}}
-              
              <a style="float:right;" :href="'https://'+item.upFileUrl">点击下载</a>
-
             </section>
-            
           </b-tab-item>
         </b-tabs>
       </article>
@@ -194,11 +190,10 @@ export default {
     },
     //获取上传资源
     getResourse(){
-      axios.get("http://localhost:8081/admin/get-upFileList",{})
+      axios.get("/admin/get-upFileList",{})
       .then((response)=>{
         const data = response.data;
         this.tempInfo = data
-        console.log(this.tempInfo);
       })
     }
   },

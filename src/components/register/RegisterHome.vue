@@ -25,6 +25,9 @@ import SecendStep from "../register/SecendStep";
 import ThirdStep from "../register/ThirdStep";
 import * as THREE from "three";
 import Rings from "vanta/src/vanta.rings";
+import HALO from "vanta/src/vanta.halo";
+import NET from "vanta/src/vanta.net";
+
 
 export default {
   components: {
@@ -33,18 +36,17 @@ export default {
     ThirdStep,
   },
   mounted() {
-  this.vantaEffect = Rings({
+  this.vantaEffect = NET({
       el: this.$refs.vantaRef,
       THREE: THREE,
       mouseControls: true,
       touchControls: true,
       gyroControls: false,
-      minHeight: 100.00,
-      minWidth: 100.00,
+      minHeight: 200.00,
+      minWidth: 200.00,
       scale: 1.00,
       scaleMobile: 1.00,
-      backgroundColor: 0x6026a0,
-      color: 0x4a2198,
+      color: 0x3fe8ff
     });
   },
 };

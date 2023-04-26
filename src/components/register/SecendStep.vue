@@ -19,7 +19,7 @@
       </b-field>
 
       <b-field label="性别" type="is-white" custom-class="has-text-white" >
-            <b-select placeholder="Please select your gender" class="opacitys" >
+            <b-select placeholder="Please select your gender" class="opacitys" v-model="userSex">
                 <option value="男">男</option>
                 <option value="女">女</option>
             </b-select>
@@ -62,7 +62,7 @@ export default {
           type: "is-danger",
           position: "is-bottom-left",
           
-          queue: false,
+          // queue: false,
           // onAction: () => {
           //   this.$buefy.toast.open({
           //     message: "信息填写完整再点击保存",
